@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>琉璃灯 · 五运六气健康管理</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <div class="container mobile-pb">
+    <header>
+      <h1>五运六气健康管理</h1>
+      <div class="subtitle">琉璃灯 · 个人体质调理助手</div>
+    </header>
+
+    <!-- Date Navigation -->
+    <div class="date-nav">
+      <button onclick="changeDate(-1)">&#8249;</button>
+      <div class="current-date" id="currentDate">2026年5月20日</div>
+      <button onclick="changeDate(1)">&#8250;</button>
+    </div>
+    <div class="text-center small mb-1" id="jieQiInfo">当前节气：小满（5天后）</div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab(0)">今日概览</button>
+      <button class="tab" onclick="switchTab(1)">六气时间轴</button>
+      <button class="tab" onclick="switchTab(2)">健康档案</button>
+      <button class="tab" onclick="switchTab(3)">命盘与修行</button>
+      <button class="tab" onclick="switchTab(4)">健康日志</button>
+      <button class="tab" onclick="switchTab(5)">今日打卡</button>
+    </div>
+
+    <!-- Tab 1: 今日概览 -->
+    <div class="tab-content active" id="tab-0">
+      <div class="card">
+        <div class="card-title"><span class="icon">&#127775;</span>五运六气</div>
+        <div class="luck-grid" id="luckGrid">
+          <!-- JS填充 -->
+        </div>
+        <div class="qi-display mt-2" id="qiDisplay">
+          <!-- JS填充 -->
+        </div>
+        <div class="countdown" id="countdownBox">
+          <!-- JS填充 -->
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">&#128161;</span>今日体质提醒</div>
+        <div id="adviceBox">
+          <!-- JS填充 -->
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">&#128085;</span>五行穿衣指南</div>
+        <div id="clothingBox" style="font-size:13px;">
+          <!-- JS填充 -->
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">&#128138;</span>服药提醒</div>
+        <div id="medicineBox" style="font-size:13px;color:var(--text-light);">
+          <!-- JS填充 -->
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">&#128663;</span>补充剂提醒</div>
+        <div id="supplementBox" style="font-size:13px;"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">&#9775;</span>今日命盘提醒</div>
+        <div id="baziDailyBox" style="font-size:13px;color:var(--text-light);">
+          <!-- JS填充 -->
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">&#127858;</span>今日饮食建议</div>
+        <div id="dietAdviceBox" style="font-size:13px;color:var(--text-light);">
+          <!-- JS填充 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: 六气时间轴 -->
+    <div class="tab-content" id="tab-1">
+      <div class="card">
+        <div class="card-title"><span class="icon">&#128197;</span>2026年六气推移</div>
+        <div class="phase-bar" id="phaseBar"></div>
+        <div class="timeline" id="timelineBox">
+          <!-- JS填充 -->
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon">&#128220;</span>岁运与司天在泉</div>
+        <div style="font-size:13px;color:var(--text-light);line-height:1.8;" id="yearInfo">
+          <!-- JS填充 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: 健康档案 -->
+    <div class="tab-content" id="tab-2">
+      <div class="card">
+        <div class="card-title"><span class="icon">&#128100;</span>体质辨识</div>
+        <div id="constitutionBox"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon">&#127807;</span>当前方药</div>
+        <div id="formulaBox"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon">&#127812;</span>代茶饮安全分级</div>
+        <div id="teaBox"></div>
+      </div>
+    </div>
+
+    <!-- Tab 3: 命盘与修行 -->
+    <div class="tab-content" id="tab-3">
+      <div class="card">
+        <div class="card-title"><span class="icon">&#9775;</span>八字命盘</div>
+        <div id="baziChartBox"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon">&#9670;</span>五行分布</div>
+        <div id="wuxingBox"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon">&#10017;</span>神煞与修行缘</div>
+        <div id="shenshaBox"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon">&#128214;</span>修行建议</div>
+        <div id="practiceBox"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon">&#128218;</span>经典指引</div>
+        <div id="classicBox"></div>
+      </div>
+    </div>
+
+    <!-- Tab 4: 健康日志 -->
+    <div class="tab-content" id="tab-4">
+      <div class="card">
+        <div class="card-title"><span class="icon">&#9997;</span>今日打卡</div>
+        <form class="log-form" onsubmit="saveLog(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>日期</label>
+              <input type="date" id="logDate" required>
+            </div>
+            <div class="form-group">
+              <label>睡眠质量</label>
+              <select id="logSleep">
+                <option value="">请选择</option>
+                <option value="很好">很好</option>
+                <option value="较好">较好</option>
+                <option value="一般">一般</option>
+                <option value="较差">较差</option>
+                <option value="很差">很差</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>情绪状态</label>
+              <select id="logMood">
+                <option value="">请选择</option>
+                <option value="平和">平和</option>
+                <option value="愉悦">愉悦</option>
+                <option value="焦虑">焦虑</option>
+                <option value="烦躁">烦躁</option>
+                <option value="低落">低落</option>
+                <option value="愤怒">愤怒</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>大便情况</label>
+              <select id="logStool">
+                <option value="">请选择</option>
+                <option value="正常">正常</option>
+                <option value="偏干">偏干</option>
+                <option value="偏稀">偏稀</option>
+                <option value="腹泻">腹泻</option>
+                <option value="便秘">便秘</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>舌苔状态</label>
+              <select id="logTongue">
+                <option value="">请选择</option>
+                <option value="薄白">薄白</option>
+                <option value="白厚">白厚</option>
+                <option value="黄腻">黄腻</option>
+                <option value="红少苔">红少苔</option>
+                <option value="有裂纹">有裂纹</option>
+                <option value="齿痕">齿痕</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>体力状态</label>
+              <select id="logEnergy">
+                <option value="">请选择</option>
+                <option value="充沛">充沛</option>
+                <option value="尚可">尚可</option>
+                <option value="疲倦">疲倦</option>
+                <option value="虚乏">虚乏</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin:16px 0 10px;font-weight:700;color:var(--accent);font-size:14px;font-family:Songti SC,serif;">&#127858; 饮食记录</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>早餐</label>
+              <input type="text" id="logBreakfast" placeholder="例如：小米粥、鸡蛋、苹果">
+            </div>
+            <div class="form-group">
+              <label>午餐</label>
+              <input type="text" id="logLunch" placeholder="例如：米饭、清蒸鱼、炒菠菜">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>晚餐</label>
+              <input type="text" id="logDinner" placeholder="例如：山药粥、豆腐、白菜">
+            </div>
+            <div class="form-group">
+              <label>加餐/其他</label>
+              <input type="text" id="logSnack" placeholder="例如：红枣水、核桃">
+            </div>
+          </div>
+          <div id="foodAnalysisBox" style="margin-bottom:14px;"></div>
+          <div style="margin:16px 0 10px;font-weight:700;color:var(--accent);font-size:14px;font-family:Songti SC,serif;">&#128663; 补充剂打卡</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>麦角硫因（早晨空腹）</label>
+              <select id="logEGT">
+                <option value="">未记录</option>
+                <option value="已服用">✅ 已服用</option>
+                <option value="漏服">❌ 漏服</option>
+                <option value="时间不对">⚠️ 时间不对</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>辅酶Q10（午餐后）</label>
+              <select id="logCoQ10">
+                <option value="">未记录</option>
+                <option value="已服用">✅ 已服用</option>
+                <option value="漏服">❌ 漏服</option>
+                <option value="时间不对">⚠️ 时间不对</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>鱼油Omega-3（晚餐后）</label>
+              <select id="logFishOil">
+                <option value="">未记录</option>
+                <option value="已服用">✅ 已服用</option>
+                <option value="漏服">❌ 漏服</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>GABA（睡前1小时）</label>
+              <select id="logGABA">
+                <option value="">未记录</option>
+                <option value="已服用">✅ 已服用</option>
+                <option value="漏服">❌ 漏服</option>
+                <option value="减量">⚠️ 减量</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>补充剂备注</label>
+              <input type="text" id="logSupplementNote" placeholder="例如：Q10改到晚餐后了">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>其他症状/备注</label>
+            <textarea id="logNote" rows="2" placeholder="例如：右侧肩颈痛、唇炎复发、月经来潮..."></textarea>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary">保存记录</button>
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('logDate').value=formatDate(new Date())">设为今日</button>
+            <button type="button" class="btn btn-secondary" onclick="analyzeCurrentMeal()">分析今日饮食</button>
+          </div>
+        </form>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon">&#128203;</span>历史记录</div>
+        <div id="logList"></div>
+      </div>
+    </div>
+
+    <!-- Tab 5: 今日打卡 -->
+    <div class="tab-content" id="tab-5">
+      <div class="card">
+        <div class="card-title"><span class="icon">&#128138;</span>用药打卡</div>
+        <div class="checkin-section">
+          <div class="checkin-grid" id="medicineCheckin">
+            <div class="checkin-item" onclick="toggleCheckin(this, 'morningMed')">
+              <div class="checkin-icon">&#127807;</div>
+              <div class="checkin-name">晨间中药</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'eveningMed')">
+              <div class="checkin-icon">&#127807;</div>
+              <div class="checkin-name">晚间中药</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'gaba')">
+              <div class="checkin-icon">&#128564;</div>
+              <div class="checkin-name">GABA</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'egt')">
+              <div class="checkin-icon">&#128663;</div>
+              <div class="checkin-name">麦角硫因</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'coq10')">
+              <div class="checkin-icon">&#128663;</div>
+              <div class="checkin-name">辅酶Q10</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'fishoil')">
+              <div class="checkin-icon">&#128663;</div>
+              <div class="checkin-name">鱼油</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">&#9775;</span>修行打卡</div>
+        <div class="checkin-section">
+          <div class="checkin-grid" id="cultivationCheckin">
+            <div class="checkin-item" onclick="toggleCheckin(this, 'jingang')">
+              <div class="checkin-icon">&#128336;</div>
+              <div class="checkin-name">金刚诵</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'dali')">
+              <div class="checkin-icon">&#128591;</div>
+              <div class="checkin-name">大礼拜</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'shuiguan')">
+              <div class="checkin-icon">&#128167;</div>
+              <div class="checkin-name">水火既济</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'wuhuo')">
+              <div class="checkin-icon">&#9728;&#65039;</div>
+              <div class="checkin-name">午火冥想</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'yijin')">
+              <div class="checkin-icon">&#129495;</div>
+              <div class="checkin-name">晨间易筋经</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'chaoxie')">
+              <div class="checkin-icon">&#9997;</div>
+              <div class="checkin-name">抄经</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">&#127939;</span>运动打卡</div>
+        <div class="checkin-section">
+          <div class="checkin-grid" id="exerciseCheckin">
+            <div class="checkin-item" onclick="toggleCheckin(this, 'yijinSport')">
+              <div class="checkin-icon">&#129495;</div>
+              <div class="checkin-name">易筋经</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'wushu')">
+              <div class="checkin-icon">&#129354;</div>
+              <div class="checkin-name">武术</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'dance')">
+              <div class="checkin-icon">&#128131;</div>
+              <div class="checkin-name">舞蹈</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'walk')">
+              <div class="checkin-icon">&#128694;</div>
+              <div class="checkin-name">散步</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" onclick="toggleCheckin(this, 'dazuo')">
+              <div class="checkin-icon">&#129496;</div>
+              <div class="checkin-name">打坐</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+          </div>
+          <div class="custom-checkin">
+            <input type="text" id="customExercise" placeholder="自定义运动">
+            <button onclick="addCustomCheckin()">添加</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div class="card-title" style="margin-bottom:0;"><span class="icon">&#128202;</span>今日完成度</div>
+          <div id="checkinProgress" style="font-size:18px;font-weight:700;color:var(--accent);">0%</div>
+        </div>
+        <div style="background:var(--bg);border-radius:8px;height:8px;overflow:hidden;margin-bottom:10px;">
+          <div id="checkinProgressBar" style="background:var(--accent);height:100%;width:0%;transition:width 0.3s;border-radius:8px;"></div>
+        </div>
+        <div id="checkinSummary" style="font-size:13px;color:var(--text-light);"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation (Mobile) -->
+  <nav class="bottom-nav">
+    <div class="nav-inner">
+      <button class="nav-item active" onclick="switchTab(0)">
+        <span class="nav-icon">&#127968;</span>
+        <span>概览</span>
+      </button>
+      <button class="nav-item" onclick="switchTab(1)">
+        <span class="nav-icon">&#128197;</span>
+        <span>六气</span>
+      </button>
+      <button class="nav-item" onclick="switchTab(5)">
+        <span class="nav-icon">&#9989;</span>
+        <span>打卡</span>
+      </button>
+      <button class="nav-item" onclick="switchTab(4)">
+        <span class="nav-icon">&#9997;</span>
+        <span>日志</span>
+      </button>
+      <button class="nav-item" onclick="switchTab(2)">
+        <span class="nav-icon">&#128100;</span>
+        <span>档案</span>
+      </button>
+    </div>
+  </nav>
+
+  <script src="js/wuyun.js"></script>
+  <script src="js/bazi.js"></script>
+  <script src="js/food.js"></script>
+  <script>
+  // ==================== 用户数据 ====================
+  const USER = {
+    name: '琉璃灯',
+    constitution: ['阴虚火旺', '肝郁血瘀', '脾虚湿蕴'],
+    formula: {
+      date: '2026-07-06',
+      name: '滋阴清热健脾安神方',
+      herbs: '炒枣仁9g、北柴胡6g、墨旱莲15g、酒山萸肉15g、首乌藤9g、麦冬9g、酒黄芩9g、炙甘草9g、煅牡蛎30g(先煎半)、珍珠母30g(先煎半)、盐菟丝子30g、炒杜仲15g、淡豆豉9g、生地黄15g、炒鸡内金15g、地骨皮15g、酒女贞子15g、醋五味子9g、合欢皮15g、生麦芽30g',
+      usage: '饭后半小时温服，每日一剂，1日2次每次200ml。煅牡蛎、珍珠母需先煎半小时。共4剂，代煎14袋。'
+    },
+    supplements: [
+      {
+        name: '麦角硫因（EGT）',
+        time: '早晨空腹（饭前30分钟）',
+        dosage: '每日1次',
+        withFood: false,
+        note: '水溶性，空腹吸收最佳。与中药间隔30分钟。',
+        bestHour: [6, 7, 8],
+        level: 'green'
+      },
+      {
+        name: '辅酶Q10',
+        time: '午餐后（随餐服用）',
+        dosage: '每日1次',
+        withFood: true,
+        note: '脂溶性，必须随餐（需要脂肪）。严格避免晚上服用（可能扰眠）。',
+        bestHour: [12, 13, 14],
+        level: 'warning'
+      },
+      {
+        name: '鱼油 Omega-3',
+        time: '晚餐后',
+        dosage: '每日1次',
+        withFood: true,
+        note: '随餐减少胃不适。脾虚湿蕴者剂量≤1g/天，避免加重湿浊。',
+        bestHour: [18, 19, 20],
+        level: 'warning'
+      },
+      {
+        name: 'GABA（γ-氨基丁酸）',
+        time: '睡前1小时',
+        dosage: '每日1次',
+        withFood: false,
+        note: '助眠用。长期安全性数据不足，建议连续服用不超过3个月。若减量后反弹，需配合酸枣仁百合茶逐步过渡。晨起残留效应：可能眼睛疲惫、神思弥散。',
+        bestHour: [21, 22, 23],
+        level: 'warning'
+      }
+    ],
+    tea: {
+      green: [
+        { name: '酸枣仁百合茶', reason: '酸枣仁与方中炒枣仁协同，百合安神润肺，适合睡眠不实' },
+        { name: '桑葚水', reason: '滋阴养血生津，直接补充阴液，与生地黄、墨旱莲、女贞子协同养阴' },
+        { name: '玉竹水', reason: '养阴润燥生津，直接针对阴虚，与生地黄、麦冬协同滋阴' },
+        { name: '麦冬水', reason: '与方中麦冬协同，养阴生津，滋阴而不滋腻，适合阴虚火旺' },
+        { name: '首乌藤茶', reason: '与方中首乌藤协同，养心安神，通络助眠' },
+        { name: '合欢花茶', reason: '与方中合欢皮协同，安神解郁，针对情绪不畅' },
+        { name: '红枣水', reason: '温和补血，安神，不扰睡眠' },
+        { name: '枸杞水', reason: '滋补肝肾，与女贞子、菟丝子、山萸肉协同' },
+        { name: '淡白菊花茶（杭白菊/胎菊）', reason: '平肝明目，适合阴虚火旺。必须淡泡少量，选白菊而非野菊' },
+        { name: '小麦茶（浮小麦/淮小麦）', reason: '养心安神，甘凉平和，不扰睡眠' }
+      ],
+      yellow: [
+        { name: '淡玫瑰花茶', reason: '疏肝解郁，与柴胡、合欢皮、生麦芽方向一致，但行气不宜过强，情绪不畅时少量用' },
+        { name: '梅花花蕾（绿萼梅）', reason: '疏肝和胃，但微酸涩，不宜长期大量，情绪不畅时少量可' },
+        { name: '温蜂蜜水', reason: '安神润燥，睡前少量可助眠' },
+        { name: '覆盆子果萃', reason: '补益肝肾，但性偏温，阴虚火旺者少量用' }
+      ],
+      red: [
+        { name: '所有茶叶（绿茶/红茶/乌龙/普洱）', reason: '含咖啡因、茶碱，直接扰动心神，与方中大量安神药（酸枣仁、珍珠母、煅牡蛎）方向相悖。失眠期间绝对禁止。' },
+        { name: '咖啡', reason: '咖啡因兴奋中枢神经，严重干扰安神药效' },
+        { name: '酒', reason: '辛热助火，扰动心神，加重阴虚火旺' },
+        { name: '陈皮水', reason: '阴虚者忌苦燥伤津，陈皮辛温苦燥会进一步耗伤津液，与滋阴方向相悖' },
+        { name: '乌梅', reason: '酸涩收敛，与方中醋五味子重复收敛，过收敛则气郁，不利于疏肝解郁' },
+        { name: '山楂', reason: '酸味收敛且破气，与滋阴安神方向冲突' },
+        { name: '醋', reason: '酸收敛，不利于疏肝解郁，且方中已有醋五味子' },
+        { name: '柿子', reason: '酸涩收敛，妨碍气机流通' },
+        { name: '黄芪茶/党参茶', reason: '方中无补气药，黄芪升提助火，恐加重阴虚失眠' },
+        { name: '玫瑰佛手茶（浓）', reason: '行气过强，耗散正气，与安神方向冲突' },
+        { name: '通安茶（佛手/香橼）', reason: '破气行散，对抗安神' },
+        { name: '祛湿茶（含薏米赤小豆茯苓等）', reason: '利湿过度耗伤阴液，与滋阴方向相悖' },
+        { name: '乌梅三豆饮', reason: '收敛与滋阴安神方向相悖' },
+        { name: '茉莉花', reason: '芳香走窜，耗散气机，不利于安神' },
+        { name: '杜仲雄花', reason: '温补助火，加重阴虚' },
+        { name: '莓茶', reason: '性凉活血，扰动心神' },
+        { name: '藏红花', reason: '活血过强，与新方去活血药的思路相悖' },
+        { name: '三七', reason: '活血温燥，干扰安神' },
+        { name: '柚子乌龙茶', reason: '破气+含茶扰神' },
+        { name: '杨桃/油柑类饮品', reason: '性极寒，强力导泻伤阴' }
+      ]
+    }
+  };
+
+  const PHASES_2026 = [
+    {
+      name: '初之气', period: '1月20日 — 3月20日',
+      zhu: '厥阴风木', ke: '太阳寒水',
+      title: '初之气·寒包风',
+      desc: '主气厥阴风木，客气太阳寒水。寒包风邪，易伤表卫，万物始生而未盛。',
+      advice: ['防风保暖，尤其头颈和背部', '饮食宜温，忌生冷寒凉', '晨起梳头百下，助阳气升发', '避免过早减衣，春捂秋冻']
+    },
+    {
+      name: '二之气', period: '3月20日 — 5月21日',
+      zhu: '少阴君火', ke: '厥阴风木',
+      title: '二之气·风火相煽',
+      desc: '主气少阴君火，客气厥阴风木。风火相煽，肝气易动，阳气升发过旺。',
+      advice: ['忌生气动怒，保持情绪平稳', '饮食清淡，忌辛辣发物', '可按揉太冲穴疏肝理气', '避免熬夜，23点前入睡', '注意肝火上升引发的头痛、目赤']
+    },
+    {
+      name: '三之气', period: '5月21日 — 7月23日',
+      zhu: '少阳相火', ke: '少阴君火',
+      title: '三之气·两火叠加 【全年红色警戒】',
+      desc: '主气少阳相火，客气少阴君火。两火叠加，全年最热最耗阴液的60天。',
+      advice: ['中午11-13点务必静心或小憩', '严格禁酒、辛辣、羊肉、烧烤', '大量饮温水，绝对忌冷饮', '剧烈运动改到上午，避开午后高温', '保持充足睡眠，忌熬夜耗阴', '若口干、心烦、失眠加重，及时复诊']
+    },
+    {
+      name: '四之气', period: '7月23日 — 9月23日',
+      zhu: '太阴湿土', ke: '太阴湿土',
+      title: '四之气·湿热交蒸',
+      desc: '主气太阴湿土，客气太阴湿土。同气相求，湿气最重，脾土受困。',
+      advice: ['健脾祛湿，忌甜腻、生冷、奶茶', '饮食清淡，可用冬瓜、薏米（少量）', '避开潮湿环境，适度出汗排湿', '舌苔易厚腻，注意观察', '陈皮水可日常饮用，助运化']
+    },
+    {
+      name: '五之气', period: '9月23日 — 11月22日',
+      zhu: '阳明燥金', ke: '少阳相火',
+      title: '五之气·燥火当令',
+      desc: '主气阳明燥金，客气少阳相火。火克金，燥火伤阴，肺金受灼。',
+      advice: ['滋阴润燥，多吃白色食物（银耳、百合、梨）', '早卧早起，防秋燥伤肺', '皮肤保湿，注意唇炎复发', '保持室内适度湿润，避免咽干']
+    },
+    {
+      name: '终之气', period: '11月22日 — 1月20日',
+      zhu: '太阳寒水', ke: '阳明燥金',
+      title: '终之气·寒燥收引',
+      desc: '主气太阳寒水，客气阳明燥金。寒燥交结，收引凝滞，阳气深伏。',
+      advice: ['早睡晚起，必待日光', '保暖避寒，尤其腰腹和下肢', '饮食温热滋补，忌寒凉', '适度运动，避免大汗伤阳', '注意关节保暖，防寒凝血瘀']
+    }
+  ];
+
+  // ==================== 状态管理 ====================
+  let currentDate = new Date();
+  let logs = JSON.parse(localStorage.getItem('liuli-health-logs') || '[]');
+
+  function formatDate(d) {
+    const y = d.getFullYear(), m = d.getMonth()+1, day = d.getDate();
+    return `${y}-${String(m).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  }
+  function formatDateCN(d) {
+    const y = d.getFullYear(), m = d.getMonth()+1, day = d.getDate();
+    const week = ['日','一','二','三','四','五','六'][d.getDay()];
+    return `${y}年${m}月${day}日 周${week}`;
+  }
+
+  // ==================== 核心渲染 ====================
+  function renderAll() {
+    document.getElementById('currentDate').textContent = formatDateCN(currentDate);
+    const ds = formatDate(currentDate);
+    document.getElementById('logDate').value = ds;
+
+    // 五运六气
+    const liuQi = WuyunEngine.getLiuQiInfo(currentDate);
+    const suiYun = WuyunEngine.getSuiYun(liuQi.year);
+    const stzq = WuyunEngine.getSiTianZaiQuan(liuQi.year);
+    const jieQi = WuyunEngine.getJieQiInfo(currentDate);
+
+    // 节气信息
+    let jieQiHtml = '';
+    if (jieQi.current) jieQiHtml += `当前节气：${jieQi.current.name}`;
+    if (jieQi.next) {
+      const days = WuyunEngine.daysToNextJieQi(currentDate);
+      jieQiHtml += days !== null ? ` · 距${jieQi.next.name}还有 ${days} 天` : '';
+    }
+    document.getElementById('jieQiInfo').innerHTML = jieQiHtml;
+
+    // 运气网格
+    const luckGrid = document.getElementById('luckGrid');
+    luckGrid.innerHTML = `
+      <div class="luck-item">
+        <div class="label">岁运</div>
+        <div class="value">${suiYun.fullName}</div>
+        <div class="desc">${suiYun.gan}天干 · ${suiYun.yun}运</div>
+      </div>
+      <div class="luck-item">
+        <div class="label">司天</div>
+        <div class="value">${stzq.siTian}</div>
+        <div class="desc">${stzq.zhi}地支 · 上半年</div>
+      </div>
+      <div class="luck-item">
+        <div class="label">在泉</div>
+        <div class="value">${stzq.zaiQuan}</div>
+        <div class="desc">${stzq.zhi}地支 · 下半年</div>
+      </div>
+      <div class="luck-item">
+        <div class="label">当前六气</div>
+        <div class="value">${liuQi.name}</div>
+        <div class="desc">${liuQi.start.slice(5)} ~ ${liuQi.end.slice(5)}</div>
+      </div>
+      <div class="luck-item">
+        <div class="label">主气</div>
+        <div class="value">${liuQi.zhuQi.name}</div>
+        <div class="desc">${liuQi.zhuQi.desc} · ${liuQi.zhuQi.wuxing}</div>
+      </div>
+      <div class="luck-item">
+        <div class="label">客气</div>
+        <div class="value">${liuQi.keQi.name}</div>
+        <div class="desc">${liuQi.keQi.desc} · ${liuQi.keQi.wuxing}</div>
+      </div>
+    `;
+
+    // 主客叠加展示
+    document.getElementById('qiDisplay').innerHTML = `
+      <div class="qi-box">
+        <div class="qi-tag">主气（地）</div>
+        <div class="qi-name">${liuQi.zhuQi.name}</div>
+        <div class="qi-desc">${liuQi.zhuQi.nature} · ${liuQi.zhuQi.wuxing}</div>
+      </div>
+      <div class="qi-box ke">
+        <div class="qi-tag">客气（天）</div>
+        <div class="qi-name">${liuQi.keQi.name}</div>
+        <div class="qi-desc">${liuQi.keQi.nature} · ${liuQi.keQi.wuxing}</div>
+      </div>
+    `;
+
+    // 节气倒计时
+    const cdBox = document.getElementById('countdownBox');
+    if (jieQi.next && WuyunEngine.daysToNextJieQi(currentDate) !== null) {
+      const days = WuyunEngine.daysToNextJieQi(currentDate);
+      cdBox.innerHTML = `
+        <div class="cd-number">${days}</div>
+        <div class="cd-label">天后进入「${jieQi.next.name}」· ${PHASES_2026[liuQi.index] ? PHASES_2026[liuQi.index].title : ''}</div>
+      `;
+    } else {
+      cdBox.innerHTML = '';
+    }
+
+    // 体质提醒
+    const advice = getDailyAdvice(liuQi);
+    const adviceBox = document.getElementById('adviceBox');
+    let extrasHtml = advice.extras.length ? `<ul style="margin-top:8px;">` + advice.extras.map(e => `<li>${e}</li>`).join('') + `</ul>` : '';
+    adviceBox.innerHTML = `
+      <div class="alert-box ${advice.level}">
+        <div class="alert-title">${advice.phase.title}</div>
+        <div style="margin-bottom:6px;">${advice.phase.desc}</div>
+        <ul>${advice.phase.advice.map(a => `<li>${a}</li>`).join('')}</ul>
+        ${extrasHtml}
+      </div>
+    `;
+
+    // 服药提醒
+    document.getElementById('medicineBox').innerHTML = `
+      <div style="margin-bottom:8px;"><strong>当前方药：</strong>${USER.formula.name}（${USER.formula.date}起）</div>
+      <div style="margin-bottom:8px;"><strong>用法：</strong>${USER.formula.usage}</div>
+      <div style="margin-bottom:8px;"><strong>组成：</strong>${USER.formula.herbs}</div>
+      <div style="background:#F5F0E8;padding:10px;border-radius:6px;margin-top:10px;">
+        <strong>今日服药注意：</strong>${advice.medicine}
+      </div>
+    `;
+
+    // 时间轴
+    renderTimeline();
+    // 档案
+    renderProfile();
+    // 命盘
+    renderBazi();
+    renderBaziDaily(liuQi);
+    // 补充剂
+    renderSupplementBox();
+    // 饮食建议
+    renderDietAdvice(liuQi);
+    // 五行穿衣
+    renderClothingGuide();
+    // 日志
+    renderLogs();
+  }
+
+  function renderDietAdvice(liuQi) {
+    const advice = FoodEngine.getDailyDietAdvice(USER.constitution, liuQi.index, USER.formula.name);
+    const box = document.getElementById('dietAdviceBox');
+    const recs = FoodEngine.getRecommendations(USER.constitution, liuQi.index);
+
+    box.innerHTML = `
+      <div class="alert-box ${liuQi.index === 2 ? 'danger' : liuQi.index === 3 ? 'warning' : 'normal'}">
+        <div class="alert-title">${advice.phase}饮食总纲</div>
+        <div style="margin-bottom:8px;">${advice.general}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;">
+          <div style="flex:1;min-width:140px;background:var(--card);padding:10px;border-radius:6px;">
+            <div style="font-weight:700;color:var(--success);font-size:12px;margin-bottom:4px;">宜食</div>
+            <div style="font-size:12px;">${advice.prefer.slice(0, 6).join('、')}</div>
+          </div>
+          <div style="flex:1;min-width:140px;background:var(--card);padding:10px;border-radius:6px;">
+            <div style="font-weight:700;color:var(--danger);font-size:12px;margin-bottom:4px;">忌食</div>
+            <div style="font-size:12px;">${advice.avoid.slice(0, 6).join('、')}</div>
+          </div>
+        </div>
+        <div style="margin-top:10px;">
+          <div style="font-weight:700;color:var(--accent);font-size:12px;margin-bottom:4px;">推荐食谱框架</div>
+          <div style="font-size:12px;line-height:1.8;">
+            <span style="color:var(--text-light);">早：</span>${advice.breakfast.join('、') || '参考推荐列表'}<br>
+            <span style="color:var(--text-light);">午：</span>${advice.lunch.join('、') || '参考推荐列表'}<br>
+            <span style="color:var(--text-light);">晚：</span>${advice.dinner.join('、') || '参考推荐列表'}
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <div style="font-weight:700;color:var(--accent);font-size:13px;margin-bottom:6px;">今日推荐食材</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          ${recs.slice(0, 12).map(r => `<span style="background:var(--bg);padding:4px 10px;border-radius:4px;font-size:12px;color:var(--text);">${r.name}<span style="color:var(--text-light);font-size:10px;">(${r.reasons})</span></span>`).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  function analyzeCurrentMeal() {
+    const breakfast = document.getElementById('logBreakfast').value || '';
+    const lunch = document.getElementById('logLunch').value || '';
+    const dinner = document.getElementById('logDinner').value || '';
+    const snack = document.getElementById('logSnack').value || '';
+
+    const allFoods = [...breakfast.split(/[,，、]/), ...lunch.split(/[,，、]/), ...dinner.split(/[,，、]/), ...snack.split(/[,，、]/)]
+      .map(f => f.trim()).filter(f => f);
+
+    if (allFoods.length === 0) {
+      document.getElementById('foodAnalysisBox').innerHTML = '<div style="color:var(--text-light);font-size:12px;">请先输入食物再分析。</div>';
+      return;
+    }
+
+    try {
+      const liuQi = WuyunEngine.getLiuQiInfo(currentDate);
+      const result = FoodEngine.analyzeMeal(allFoods, USER.constitution, liuQi.index, USER.formula.name);
+
+      let html = '<div style="background:var(--bg);padding:14px;border-radius:8px;margin-top:10px;">';
+      html += `<div style="font-weight:700;color:var(--accent);margin-bottom:10px;font-size:14px;">饮食分析结果</div>`;
+
+      // 单项分析
+      result.items.forEach(item => {
+        let color, label;
+        if (item.status === 'red' || item.status === 'unknown') {
+          color = 'var(--danger)';
+          label = item.status === 'unknown' ? '未知' : '不宜';
+        } else if (item.status === 'yellow') {
+          color = 'var(--warning)';
+          label = '谨慎';
+        } else if (item.status === 'green' && item.synergies && item.synergies.length > 0) {
+          color = 'var(--success)';
+          label = '推荐';
+        } else {
+          color = 'var(--success)';
+          label = '可食';
+        }
+
+        html += `<div style="margin-bottom:8px;padding:8px;background:var(--card);border-radius:6px;border-left:3px solid ${color};">`;
+        html += `<div style="font-weight:700;color:${color};font-size:13px;">${label} · ${item.food}</div>`;
+
+        // 成品菜肴：显示拆解信息
+        if (item.isDish && item.dishInfo) {
+          html += `<div style="font-size:11px;color:var(--text-light);margin-top:3px;">`;
+          html += `<span style="background:var(--bg);padding:2px 6px;border-radius:3px;margin-right:4px;">${item.dishInfo.cookMethod}</span>`;
+          html += `<span style="background:var(--bg);padding:2px 6px;border-radius:3px;margin-right:4px;">${item.dishInfo.nature}性</span>`;
+          if (item.dishInfo.tags && item.dishInfo.tags.length > 0) {
+            html += item.dishInfo.tags.slice(0, 3).map(t => `<span style="background:var(--bg);padding:2px 6px;border-radius:3px;margin-right:4px;">${t}</span>`).join('');
+          }
+          html += `</div>`;
+
+          // 显示食材拆解
+          if (item.ingredientAnalyses && item.ingredientAnalyses.length > 0) {
+            html += `<div style="margin-top:6px;padding:6px;background:var(--bg);border-radius:4px;">`;
+            html += `<div style="font-size:11px;color:var(--text-light);margin-bottom:4px;">食材拆解：</div>`;
+            html += `<div style="display:flex;gap:6px;flex-wrap:wrap;">`;
+            item.ingredientAnalyses.forEach(ing => {
+              const ingColor = ing.status === 'red' ? 'var(--danger)' : ing.status === 'yellow' ? 'var(--warning)' : ing.status === 'unknown' ? 'var(--text-light)' : 'var(--success)';
+              html += `<span style="font-size:11px;color:${ingColor};background:var(--card);padding:2px 8px;border-radius:3px;border:1px solid var(--border);">${ing.name}${ing.status === 'red' ? '✗' : ing.status === 'yellow' ? '△' : ing.status === 'unknown' ? '?' : '✓'}</span>`;
+            });
+            html += `</div></div>`;
+          }
+        }
+
+        if (item.reason) {
+          html += `<div style="font-size:12px;color:var(--text-light);margin-top:3px;">${item.reason}</div>`;
+        } else if (item.issues && item.issues.length > 0) {
+          html += `<div style="font-size:12px;color:var(--text-light);margin-top:3px;">${item.issues[0]}</div>`;
+        }
+        if (item.synergies && item.synergies.length > 0) {
+          html += `<div style="font-size:12px;color:var(--success);margin-top:3px;">${item.synergies[0]}</div>`;
+        }
+        html += `</div>`;
+      });
+
+      // 组合分析
+      if (result.comboIssues && result.comboIssues.length > 0) {
+        html += `<div style="margin-top:10px;padding:10px;background:#FDF2F2;border-radius:6px;border:1px solid #E8C4C4;">`;
+        html += `<div style="font-weight:700;color:var(--danger);font-size:13px;margin-bottom:4px;">组合问题</div>`;
+        result.comboIssues.forEach(issue => {
+          html += `<div style="font-size:12px;color:var(--text-light);">· ${issue}</div>`;
+        });
+        html += `</div>`;
+      }
+
+      // 五行平衡
+      if (result.wuxingBalance) {
+        html += `<div style="margin-top:10px;font-size:12px;color:var(--text-light);">`;
+        html += `<strong>五行分布：</strong>木${result.wuxingBalance['木'] || 0}·火${result.wuxingBalance['火'] || 0}·土${result.wuxingBalance['土'] || 0}·金${result.wuxingBalance['金'] || 0}·水${result.wuxingBalance['水'] || 0}`;
+        html += `</div>`;
+      }
+
+      html += '</div>';
+      document.getElementById('foodAnalysisBox').innerHTML = html;
+    } catch (err) {
+      console.error('饮食分析出错:', err);
+      document.getElementById('foodAnalysisBox').innerHTML = `<div style="color:var(--danger);font-size:12px;">分析出错：${err.message}</div>`;
+    }
+  }
+
+  function renderBaziDaily(liuQi) {
+    const ds = formatDate(currentDate);
+    const advice = BaziEngine.getPracticeAdvice(ds, liuQi);
+    const box = document.getElementById('baziDailyBox');
+
+    let interactHtml = '';
+    if (advice.interactions.length > 0) {
+      const top = advice.interactions[0];
+      interactHtml = `
+        <div class="bazi-alert ${top.level === 'high' ? 'danger' : top.level === 'warning' ? 'warning' : 'normal'}">
+          <div class="bazi-alert-title">${top.title}</div>
+          <div style="margin-bottom:6px;">${top.desc}</div>
+          <div style="font-size:12px;color:var(--text-light);font-style:italic;margin-bottom:6px;border-left:2px solid var(--border);padding-left:8px;">${top.classic}</div>
+          <ul style="margin-left:18px;">${top.advice.map(a => `<li>${a}</li>`).join('')}</ul>
+        </div>
+      `;
+    }
+
+    let adjustHtml = advice.adjustments.length ? `<div style="margin-top:10px;"><strong>修行调整：</strong><ul style="margin-left:18px;margin-top:6px;">${advice.adjustments.map(a => `<li>${a}</li>`).join('')}</ul></div>` : '';
+
+    box.innerHTML = `
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+        <div style="background:var(--bg);padding:8px 14px;border-radius:8px;text-align:center;flex:1;min-width:80px;">
+          <div style="font-size:11px;color:var(--text-light);">今日日柱</div>
+          <div style="font-size:18px;font-weight:700;font-family:Songti SC,serif;">${advice.day.gan}${advice.day.zhi}</div>
+          <div style="font-size:12px;color:var(--text-light);">${advice.day.ganWx}·${advice.day.zhiWx}</div>
+        </div>
+        <div style="background:var(--bg);padding:8px 14px;border-radius:8px;text-align:center;flex:1;min-width:80px;">
+          <div style="font-size:11px;color:var(--text-light);">十神</div>
+          <div style="font-size:16px;font-weight:700;">${BaziEngine.getShiShen(advice.day.gan)}</div>
+        </div>
+        <div style="background:var(--bg);padding:8px 14px;border-radius:8px;text-align:center;flex:1;min-width:80px;">
+          <div style="font-size:11px;color:var(--text-light);">日主强弱</div>
+          <div style="font-size:16px;font-weight:700;">${advice.strength.level}</div>
+        </div>
+      </div>
+      ${interactHtml}
+      ${adjustHtml}
+    `;
+  }
+
+  function getDailyAdvice(liuQi) {
+    const idx = liuQi.index;
+    const phase = PHASES_2026[idx];
+    const constitutions = USER.constitution;
+    let level = 'normal';
+    if (idx === 2) level = 'danger';
+    else if (idx === 3) level = 'warning';
+
+    let extras = [];
+    if (constitutions.includes('阴虚火旺')) {
+      if (idx === 2) extras.push('【阴虚火旺·红色警戒】两火叠加极易耗伤阴液，今日任何温燥食物（姜、肉桂、羊肉、烧烤）都绝对禁止。');
+      if (idx === 4) extras.push('【阴虚火旺】燥火当令，注意皮肤保湿和唇炎防护，可喝银耳百合羹。');
+      if (idx === 1) extras.push('【阴虚火旺】风火相煽，易口干咽燥，多饮温水。');
+    }
+    if (constitutions.includes('肝郁血瘀')) {
+      if (idx === 1) extras.push('【肝郁血瘀】风木当令，肝气最旺也最易郁结。今日忌生气，可按揉太冲穴。');
+      extras.push('【肝郁血瘀】保持情绪平稳，右侧肩颈注意保暖，适度活动疏通经络。');
+    }
+    if (constitutions.includes('脾虚湿蕴')) {
+      if (idx === 3) extras.push('【脾虚湿蕴·重点提醒】湿气最重，舌苔易厚腻。严格忌甜食、冷饮、过量水果。');
+      if (idx === 0) extras.push('【脾虚湿蕴】寒包风邪，脾胃敏感。饮食温热，忌生冷。');
+      extras.push('【脾虚湿蕴】陈皮水可日常饮用，帮助运化防滋腻。');
+    }
+
+    let medicine = '按时服用7月6日方（滋阴清热健脾安神方），饭后半小时温服，每日2次每次200ml。煅牡蛎、珍珠母需先煎半小时。共4剂，代煎14袋。';
+    if (idx === 2) medicine += ' 三之气期间失眠加重，此方以滋阴清热为主，严格忌茶、咖啡、酒及辛辣，以免扰动心神。';
+    if (idx === 3) medicine += ' 方中有健脾消食药（鸡内金、生麦芽），若觉腹胀、消化不良，可配合陈皮水助运化。';
+
+    return { phase, level, extras, medicine };
+  }
+
+  function renderSupplementBox() {
+    const box = document.getElementById('supplementBox');
+    if (!box) return;
+    const now = new Date();
+    const currentHour = now.getHours();
+    let html = '';
+    USER.supplements.forEach(function(s) {
+      var isNow = s.bestHour.indexOf(currentHour) !== -1;
+      var bg = s.level === 'green' ? '#F0F5E8' : s.level === 'warning' ? '#FDF8F0' : '#FDF2F2';
+      var border = s.level === 'green' ? 'var(--success)' : s.level === 'warning' ? 'var(--warning)' : 'var(--danger)';
+      html += '<div style="background:' + bg + ';border-left:3px solid ' + border + ';padding:10px 14px;border-radius:6px;margin-bottom:8px;">'
+        + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">'
+        + '<span style="font-weight:700;font-size:13px;color:var(--text);">' + s.name + '</span>'
+        + '<span style="font-size:11px;padding:2px 8px;border-radius:3px;background:' + (isNow ? 'var(--success)' : 'var(--bg)') + ';color:' + (isNow ? 'white' : 'var(--text-light)') + ';">' + (isNow ? '⏰ 当前时段' : s.time) + '</span>'
+        + '</div>'
+        + '<div style="font-size:11px;color:var(--text-light);margin-bottom:3px;">' + s.time + ' · ' + s.dosage + ' · ' + (s.withFood ? '需随餐' : '空腹服用') + '</div>'
+        + '<div style="font-size:11px;color:var(--text-light);line-height:1.5;">' + s.note + '</div>'
+        + '</div>';
+    });
+    html += '<div style="margin-top:8px;font-size:11px;color:var(--text-light);line-height:1.6;">'
+      + '<strong>非最佳时间影响：</strong><br>'
+      + '麦角硫因饭后服：吸收降15~20%<br>'
+      + '辅酶Q10空腹服：吸收降60~70%<br>'
+      + '鱼油空腹服：30~40%概率胃不适<br>'
+      + 'GABA提前/延后：提前2小时可能提前昏沉；延后可能入睡前药效已过'
+      + '</div>';
+    box.innerHTML = html;
+  }
+
+  function renderTimeline() {
+    const today = formatDate(new Date());
+    const timeline = document.getElementById('timelineBox');
+    const bar = document.getElementById('phaseBar');
+    const yearInfo = document.getElementById('yearInfo');
+
+    const full = WuyunEngine.getFullYearData(2026);
+    yearInfo.innerHTML = `
+      <p><strong>2026年（丙午年）</strong> · 岁运：${full.suiYun.fullName} · 司天：${full.siTianZaiQuan.siTian} · 在泉：${full.siTianZaiQuan.zaiQuan}</p>
+      <p style="margin-top:8px;">水运太过之年，水气偏盛，但司天为少阴君火，形成\"寒包火\"之象。全年气候寒热交错，对阴虚火旺体质尤为考验。上半年火气压水，下半年燥金当令，需注意水火既济与润燥平衡。</p>
+    `;
+
+    bar.innerHTML = full.phases.map((p, i) => {
+      const isActive = p.start <= today && p.end > today;
+      const colors = ['#8FBC8F','#DEB887','#CD5C5C','#4682B4','#DAA520','#708090'];
+      return `<div class="phase-segment ${isActive?'active':''}" style="background:${colors[i]};opacity:${isActive?1:0.5};"></div>`;
+    }).join('');
+
+    timeline.innerHTML = full.phases.map((p, i) => {
+      const isActive = p.start <= today && p.end > today;
+      const isPast = p.end <= today;
+      const phase = PHASES_2026[i];
+      return `
+        <div class="timeline-item ${isActive?'active':''} ${isPast?'past':''}">
+          <div class="time-label">${p.start.slice(5)} ~ ${p.end.slice(5)} · ${p.name}</div>
+          <div class="time-title">${phase.title}</div>
+          <div class="time-desc">
+            主气：${p.zhuQi.name} · 客气：${p.keQi.name}<br>
+            ${phase.desc}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderBazi() {
+    const chart = BaziEngine.getFullChart();
+
+    // 八字命盘
+    document.getElementById('baziChartBox').innerHTML = `
+      <div style="font-size:13px;color:var(--text-light);margin-bottom:12px;">
+        真太阳时：1988年3月22日 08:36 · 日主：<strong style="color:var(--accent);">丙火</strong> · 格局：正印格
+      </div>
+      <table class="bazi-table">
+        <thead>
+          <tr><th></th><th>年柱</th><th>月柱</th><th>日柱（主）</th><th>时柱</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label-col">天干</td>
+            ${chart.pillars.map(p => `<td><div class="gan-cell ${BaziEngine.ganYinYang[p.gan]==='阳'?'yang':'yin'}">${p.gan}</div><div class="ss-tag">${p.shiShen}</div></td>`).join('')}
+          </tr>
+          <tr>
+            <td class="label-col">地支</td>
+            ${chart.pillars.map(p => `<td><div class="zhi-cell ${BaziEngine.zhiYinYang[p.zhi]==='阳'?'yang':'yin'}">${p.zhi}</div><div class="cg-tag">${p.cangGan.join(' ')}</div></td>`).join('')}
+          </tr>
+          <tr>
+            <td class="label-col">纳音</td>
+            ${chart.pillars.map(p => `<td class="na-yin">${p.naYin}</td>`).join('')}
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:14px;font-size:13px;color:var(--text-light);line-height:1.8;">
+        <p><strong>天干关系：</strong>戊（食神）· 乙（正印）· 丙（日主）· 壬（七杀）</p>
+        <p><strong>地支关系：</strong>子辰半合水 · 卯辰半会木 · 子刑卯 · 辰刑辰（自刑）· 卯辰相害</p>
+        <p><strong>核心矛盾：</strong>丙壬冲（水火交战）· 子水克丙火（官星克身）· 印旺身轻</p>
+      </div>
+    `;
+
+    // 五行分布
+    const wx = chart.wuxing;
+    const wxOrder = ['木','火','土','金','水'];
+    const wxColors = { '木':'#556B2F','火':'#B22222','土':'#8B7355','金':'#708090','水':'#4A6FA5' };
+    const maxWx = Math.max(...Object.values(wx));
+    document.getElementById('wuxingBox').innerHTML = `
+      <div class="wuxing-bars">
+        ${wxOrder.map(w => `
+          <div class="wx-bar-row">
+            <div class="wx-label">${w}</div>
+            <div class="wx-bar-wrap">
+              <div class="wx-bar" style="width:${(wx[w]/maxWx*100)}%;background:${wxColors[w]};opacity:0.8;"></div>
+            </div>
+            <div class="wx-value">${wx[w].toFixed(1)}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div style="margin-top:14px;font-size:13px;color:var(--text-light);line-height:1.8;">
+        <p><strong>五行诊断：</strong>木旺（肝盛）、火旺有根（心不虚）、土湿（脾弱）、<span style="color:var(--danger);font-weight:700;">金缺</span>（肺敛不足）、水旺（肾盛克心）。</p>
+        <p style="margin-top:6px;"><strong>《素问》对应：</strong>"东方生风，风生木，木生酸，酸生肝"——木旺需金制；"西方生燥，燥生金，金生辛，辛生肺"——金缺故收敛无力，易失眠、易上火。</p>
+      </div>
+    `;
+
+    // 神煞
+    document.getElementById('shenshaBox').innerHTML = chart.shenSha.map(s => `
+      <div class="shensha-item">
+        <div class="shensha-header">
+          <span class="shensha-name">${s.name}</span>
+          <span class="shensha-count">${s.count}处</span>
+          <span class="shensha-effect">${s.effect}</span>
+        </div>
+        <div class="shensha-desc">${s.desc.replace(/\n/g,'<br>')}</div>
+      </div>
+    `).join('');
+
+    // 修行建议
+    const ds = formatDate(currentDate);
+    const practice = BaziEngine.getPracticeAdvice(ds, null);
+    document.getElementById('practiceBox').innerHTML = `
+      <div style="font-size:13px;color:var(--text-light);line-height:1.8;">
+        <div style="background:var(--bg);padding:14px;border-radius:8px;margin-bottom:14px;">
+          <div style="font-weight:700;color:var(--accent);margin-bottom:8px;">日常修行框架（固定功课）</div>
+          <div class="practice-item"><span class="practice-time">卯时 5-7点</span><span class="practice-act">${practice.basePractice.morning}</span></div>
+          <div class="practice-item"><span class="practice-time">午时 11-13点</span><span class="practice-act">${practice.basePractice.noon}</span></div>
+          <div class="practice-item"><span class="practice-time">酉时 17-19点</span><span class="practice-act">${practice.basePractice.evening}</span></div>
+          <div class="practice-item"><span class="practice-time">睡前</span><span class="practice-act">${practice.basePractice.night}</span></div>
+        </div>
+        ${practice.spiritual.length ? `
+          <div style="background:#F5F0E8;padding:14px;border-radius:8px;margin-bottom:14px;">
+            <div style="font-weight:700;color:var(--accent);margin-bottom:8px;">神煞启示</div>
+            ${practice.spiritual.map(s => `<p style="margin-bottom:6px;">${s}</p>`).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `;
+
+    // 经典
+    document.getElementById('classicBox').innerHTML = chart.analysis.经典推荐.map(c => `
+      <div class="classic-item">
+        <div class="classic-name">${c.name}</div>
+        <div class="classic-reason">${c.reason}</div>
+      </div>
+    `).join('') + `
+      <div style="margin-top:14px;font-size:13px;color:var(--text-light);line-height:1.8;">
+        <p><strong>命盘总论：</strong>${chart.analysis.格局}</p>
+        <p style="margin-top:6px;"><strong>用神取向：</strong>${chart.analysis.用神}</p>
+        <p style="margin-top:6px;"><strong>体质映射：</strong>${chart.analysis.体质映射}</p>
+        <p style="margin-top:6px;"><strong>修行方向：</strong>${chart.analysis.修行方向.replace(/\n/g,'<br>')}</p>
+      </div>
+    `;
+  }
+
+  function renderProfile() {
+    document.getElementById('constitutionBox').innerHTML = `
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+        ${USER.constitution.map(c => `<span style="background:var(--bg);padding:6px 14px;border-radius:6px;font-size:13px;font-weight:600;color:var(--accent);border:1px solid var(--border);">${c}</span>`).join('')}
+      </div>
+      <div style="font-size:13px;color:var(--text-light);line-height:1.8;">
+        <p><strong>核心病机：</strong>阴虚为本，肝郁为标，脾虚为弱环。三者相互纠缠，形成"情绪不佳→右侧躯体症状→睡眠/月经出问题→更焦虑"的循环。</p>
+        <p style="margin-top:6px;"><strong>调理原则：</strong>先清后补，先安神后固本。目前处于"健脾补肾养血"的固本阶段，以四君子汤合二至丸加补肾填精药为主。</p>
+        <p style="margin-top:6px;"><strong>舌象追踪：</strong>白厚（湿）→ 红少苔裂纹（阴虚）→ 观察中</p>
+      </div>
+    `;
+
+    document.getElementById('formulaBox').innerHTML = `
+      <div style="font-size:13px;color:var(--text-light);line-height:1.8;">
+        <p><strong>方名：</strong>${USER.formula.name}</p>
+        <p><strong>开方日期：</strong>${USER.formula.date}</p>
+        <p><strong>用法：</strong>${USER.formula.usage}</p>
+        <p style="margin-top:8px;"><strong>组成：</strong>${USER.formula.herbs}</p>
+        <div style="background:#F5F0E8;padding:10px;border-radius:6px;margin-top:10px;font-size:12px;">
+          <strong>方解：</strong>炒枣仁、合欢皮、首乌藤、珍珠母、煅牡蛎安神潜阳，针对入睡困难、早醒；北柴胡、生麦芽疏肝解郁，针对情绪不畅；墨旱莲、酒女贞子、酒山萸肉、盐菟丝子、生地黄、麦冬滋阴养血填精；酒黄芩、地骨皮、淡豆豉清热除烦；炒杜仲补肾强腰；炒鸡内金、生麦芽健脾消食；醋五味子收敛安神；炙甘草调和诸药。与6月2日方相比，去掉了百合、天麻、钩藤、僵蚕等重镇药，去掉了当归、赤芍、益母草、千针万线草、续断等活血药，新增墨旱莲、首乌藤、麦冬滋阴，酒黄芩、淡豆豉清热，炒鸡内金、五味子健脾收敛。医生判断肝阳上亢/血瘀已缓解，转向滋阴清热、健脾安神为主。
+        </div>
+      </div>
+    `;
+
+    document.getElementById('teaBox').innerHTML = `
+      <div style="font-size:13px;color:var(--text-light);margin-bottom:10px;">
+        原则：<strong>宁少勿多、宁淡勿浓、宁温勿凉、宁简勿繁。</strong>拿不准就喝温开水。
+      </div>
+      <div style="font-weight:700;color:var(--success);margin-bottom:6px;font-size:14px;">绿灯 · 放心喝</div>
+      <div class="tea-grid">
+        ${USER.tea.green.map(t => `<div class="tea-item green"><div class="tea-name">${t.name}</div><div class="tea-reason">${t.reason}</div></div>`).join('')}
+      </div>
+      <div style="font-weight:700;color:var(--warning);margin:14px 0 6px;font-size:14px;">黄灯 · 谨慎用</div>
+      <div class="tea-grid">
+        ${USER.tea.yellow.map(t => `<div class="tea-item yellow"><div class="tea-name">${t.name}</div><div class="tea-reason">${t.reason}</div></div>`).join('')}
+      </div>
+      <div style="font-weight:700;color:var(--danger);margin:14px 0 6px;font-size:14px;">红灯 · 严禁喝</div>
+      <div class="tea-grid">
+        ${USER.tea.red.map(t => `<div class="tea-item red"><div class="tea-name">${t.name}</div><div class="tea-reason">${t.reason}</div></div>`).join('')}
+      </div>
+    `;
+  }
+
+  // =================== 日志功能 ====================
+  function renderLogs() {
+    const list = document.getElementById('logList');
+    if (!logs.length) {
+      list.innerHTML = '<div style="color:var(--text-light);font-size:13px;">暂无记录，请添加第一条打卡。</div>';
+      return;
+    }
+    const sorted = [...logs].sort((a,b) => b.date.localeCompare(a.date));
+    list.innerHTML = sorted.slice(0, 30).map(log => {
+      const tags = [];
+      if (log.sleep) tags.push('睡眠:' + log.sleep);
+      if (log.mood) tags.push('情绪:' + log.mood);
+      if (log.stool) tags.push('大便:' + log.stool);
+      if (log.tongue) tags.push('舌苔:' + log.tongue);
+      if (log.energy) tags.push('体力:' + log.energy);
+      // 补充剂标签
+      if (log.egt) tags.push('&#x1F48A;麦角硫因:' + log.egt);
+      if (log.coq10) tags.push('&#x1F48A;辅酶Q10:' + log.coq10);
+      if (log.fishOil) tags.push('&#x1F48A;鱼油:' + log.fishOil);
+      if (log.gaba) tags.push('&#x1F48A;GABA:' + log.gaba);
+
+      let dietHtml = '';
+      const meals = [];
+      if (log.breakfast) meals.push('早：' + log.breakfast);
+      if (log.lunch) meals.push('午：' + log.lunch);
+      if (log.dinner) meals.push('晚：' + log.dinner);
+      if (log.snack) meals.push('加：' + log.snack);
+      if (meals.length) {
+        dietHtml = '<div class="log-diet">' + meals.join(' · ') + '</div>';
+      }
+
+      let suppHtml = '';
+      if (log.egt || log.coq10 || log.fishOil || log.gaba) {
+        suppHtml = '<div style="font-size:11px;color:var(--accent);margin:4px 0 2px;">&#x1F48A; ';
+        if (log.egt) suppHtml += '麦角硫因:' + log.egt + ' ';
+        if (log.coq10) suppHtml += '辅酶Q10:' + log.coq10 + ' ';
+        if (log.fishOil) suppHtml += '鱼油:' + log.fishOil + ' ';
+        if (log.gaba) suppHtml += 'GABA:' + log.gaba;
+        suppHtml += '</div>';
+      }
+
+      return '<div class="log-entry">'
+        + '<div class="log-date">' + log.date + '</div>'
+        + '<div class="log-tags">' + tags.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div>'
+        + dietHtml
+        + suppHtml
+        + (log.supplementNote ? '<div style="font-size:11px;color:var(--text-light);margin-top:2px;">注：' + log.supplementNote + '</div>' : '')
+        + (log.note ? '<div class="log-note">' + log.note + '</div>' : '')
+        + '</div>';
+    }).join('');
+  }
+
+  function saveLog(e) {
+    e.preventDefault();
+    const log = {
+      date: document.getElementById('logDate').value,
+      sleep: document.getElementById('logSleep').value,
+      mood: document.getElementById('logMood').value,
+      stool: document.getElementById('logStool').value,
+      tongue: document.getElementById('logTongue').value,
+      energy: document.getElementById('logEnergy').value,
+      breakfast: document.getElementById('logBreakfast').value.trim(),
+      lunch: document.getElementById('logLunch').value.trim(),
+      dinner: document.getElementById('logDinner').value.trim(),
+      snack: document.getElementById('logSnack').value.trim(),
+      note: document.getElementById('logNote').value.trim(),
+      egt: document.getElementById('logEGT').value,
+      coq10: document.getElementById('logCoQ10').value,
+      fishOil: document.getElementById('logFishOil').value,
+      gaba: document.getElementById('logGABA').value,
+      supplementNote: document.getElementById('logSupplementNote').value.trim()
+    };
+    // 去重：同一天覆盖
+    logs = logs.filter(l => l.date !== log.date);
+    logs.push(log);
+    localStorage.setItem('liuli-health-logs', JSON.stringify(logs));
+    renderLogs();
+    // 清空字段
+    document.getElementById('logNote').value = '';
+    document.getElementById('logBreakfast').value = '';
+    document.getElementById('logLunch').value = '';
+    document.getElementById('logDinner').value = '';
+    document.getElementById('logSnack').value = '';
+    document.getElementById('logEGT').value = '';
+    document.getElementById('logCoQ10').value = '';
+    document.getElementById('logFishOil').value = '';
+    document.getElementById('logGABA').value = '';
+    document.getElementById('logSupplementNote').value = '';
+    document.getElementById('foodAnalysisBox').innerHTML = '';
+    alert('记录已保存');
+  }
+
+  // ==================== Tab & Date ====================
+  function switchTab(idx) {
+    document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+    document.querySelectorAll('.tab-content').forEach((c,i) => c.classList.toggle('active', i===idx));
+    // Bottom nav sync
+    document.querySelectorAll('.bottom-nav .nav-item').forEach((n, i) => {
+      const navIdx = [0, 1, 5, 4, 2][i];
+      n.classList.toggle('active', navIdx === idx);
+    });
+  }
+
+  function changeDate(delta) {
+    currentDate.setDate(currentDate.getDate() + delta);
+    renderAll();
+  }
+
+  // ==================== Clothing Guide ====================
+  function renderClothingGuide() {
+    const box = document.getElementById('clothingBox');
+    if (!box) return;
+    const dayPillar = BaziEngine.getDayPillar(formatDate(currentDate));
+    const dayGan = dayPillar.gan;
+    const dayZhi = dayPillar.zhi;
+    const dayWx = BaziEngine.ganToWuxing[dayGan];
+    const userWx = BaziEngine.ganToWuxing['丙'];
+    const relation = BaziEngine.getWuxingRelation(userWx, dayWx);
+    const zhiWx = BaziEngine.zhiToWuxing[dayZhi];
+    const zhiRelation = BaziEngine.getWuxingRelation(userWx, zhiWx);
+    const tomorrow = new Date(currentDate);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tDayPillar = BaziEngine.getDayPillar(formatDate(tomorrow));
+    const tDayGan = tDayPillar.gan;
+    const tDayZhi = tDayPillar.zhi;
+    const tDayWx = BaziEngine.ganToWuxing[tDayGan];
+    const tRelation = BaziEngine.getWuxingRelation(userWx, tDayWx);
+    const tZhiWx = BaziEngine.zhiToWuxing[tDayZhi];
+    const tZhiRelation = BaziEngine.getWuxingRelation(userWx, tZhiWx);
+
+    const colors = {
+      '木': { name: '绿色/青色', hex: '#7CB342', reason: '木之本色，生助日主' },
+      '火': { name: '红色/紫色', hex: '#E53935', reason: '火之本色，比和助运' },
+      '土': { name: '黄色/棕色', hex: '#F9A825', reason: '土之本色，比和助运' },
+      '金': { name: '白色/金色', hex: '#F5F5F5', reason: '金之本色，比和助运' },
+      '水': { name: '黑色/蓝色', hex: '#1E88E5', reason: '水之本色，比和助运' }
+    };
+
+    // 身弱丙火，喜用神：木（印）生火；忌神：金（财）耗、水（官）克、土（食伤）泄
+    // 丙子日柱坐下正官，需木通关（水生木、木生火）
+    const relationColors = {
+      '比和': { tag: 'ji', text: '吉', desc: '当日五行与日主比和，穿衣用本色或生我之色' },
+      '生我': { tag: 'ji', text: '吉', desc: '当日五行生助日主，用生我之色大吉' },
+      '我生': { tag: 'ping', text: '平', desc: '我生当日五行，泄气之象，用生我之色补身' },
+      '克我': { tag: 'xiong', text: '凶', desc: '当日五行克我，身弱不胜，用生我之色通关' },
+      '我克': { tag: 'ping', text: '平', desc: '我克当日五行，身弱不胜财，用生我之色增强' }
+    };
+
+    function getClothingColor(wx, rel, zwx, zrel) {
+      // 身弱丙火的核心原则：优先穿木（绿色）增强，忌金（白色）耗身
+      // 丙子日柱坐下正官，木是通关+生身的双重关键
+      if (rel === '我克') {
+        // 我克（金日）：身弱不胜财，需木生火增强
+        // 若地支帮身（如火），仍优先木（绿色）——既生助又不燥
+        return { ...colors['木'], reason: '身弱不胜财，木生火增强自身，绿色最稳' };
+      }
+      if (rel === '克我') {
+        // 克我（水日）：水克火，木通关（水生木、木生火）
+        return { ...colors['木'], reason: '水克火，木通关化解，且生助日主' };
+      }
+      if (rel === '我生') {
+        // 我生（土日）：火生土泄气，需木补身
+        return { ...colors['木'], reason: '火生土泄气，木生火补身' };
+      }
+      if (rel === '生我') {
+        // 生我（木日）：大吉，穿木本色
+        return { ...colors['木'], reason: '木生火，大吉，穿木之本色' };
+      }
+      if (rel === '比和') {
+        // 比和（火日）：可以穿火，但阴虚火旺者宜穿木（既生助又不过燥）
+        return { ...colors['木'], reason: '火比和，但阴虚火旺不宜过红，木生火既增强又不过燥' };
+      }
+      return colors[wx];
+    }
+
+    const todayColor = getClothingColor(dayWx, relation, zhiWx, zhiRelation);
+    const tColor = getClothingColor(tDayWx, tRelation, tZhiWx, tZhiRelation);
+    const todayRel = relationColors[relation];
+    const tRel = relationColors[tRelation];
+
+    // 地支影响说明
+    let zhiNote = '';
+    if (zhiRelation === '比和') {
+      zhiNote = '地支' + dayZhi + '（' + zhiWx + '）帮身，但天干' + dayGan + '（' + dayWx + '）耗气，综合需增强自身。';
+    } else if (zhiRelation === '生我') {
+      zhiNote = '地支' + dayZhi + '（' + zhiWx + '）生助日主，与天干互补。';
+    } else if (zhiRelation === '克我') {
+      zhiNote = '地支' + dayZhi + '（' + zhiWx + '）克身，天干亦不利，需加强通关。';
+    }
+
+    box.innerHTML = '<div class="clothing-card today">'
+      + '<div class="color-preview" style="background:' + todayColor.hex + ';"></div>'
+      + '<div class="color-info">'
+      + '<div class="color-name">今日：' + todayColor.name + '</div>'
+      + '<div class="color-reason">' + todayColor.reason + ' · ' + todayRel.desc + '</div>'
+      + '</div>'
+      + '<div class="color-tag ' + todayRel.tag + '">' + todayRel.text + '</div>'
+      + '</div>'
+      + '<div class="clothing-card tomorrow">'
+      + '<div class="color-preview" style="background:' + tColor.hex + ';"></div>'
+      + '<div class="color-info">'
+      + '<div class="color-name">明日：' + tColor.name + '</div>'
+      + '<div class="color-reason">' + tColor.reason + ' · ' + tRel.desc + '</div>'
+      + '</div>'
+      + '<div class="color-tag ' + tRel.tag + '">' + tRel.text + '</div>'
+      + '</div>'
+      + '<div style="font-size:11px;color:var(--text-light);margin-top:8px;line-height:1.6;">'
+      + '<strong>原理：</strong>丙子日柱（身弱），天干' + dayGan + '（' + dayWx + '）·地支' + dayZhi + '（' + zhiWx + '）。'
+      + '五行关系：天干' + relation + '，地支' + zhiRelation + '。' + zhiNote
+      + '<br>身弱丙火喜木（印）生火，丙子坐下正官需木通关。绿色为首选，忌白色（金耗身）。'
+      + '</div>';
+  }
+
+  // ==================== Check-in ====================
+  function toggleCheckin(el, key) {
+    el.classList.toggle('checked');
+    const isChecked = el.classList.contains('checked');
+    el.querySelector('.checkin-status').textContent = isChecked ? '✅ 已打卡' : '未打卡';
+    const today = formatDate(new Date());
+    let state = JSON.parse(localStorage.getItem('liuli-checkin-' + today) || '{}');
+    state[key] = isChecked;
+    localStorage.setItem('liuli-checkin-' + today, JSON.stringify(state));
+    updateCheckinProgress();
+  }
+
+  function addCustomCheckin() {
+    const input = document.getElementById('customExercise');
+    const name = input.value.trim();
+    if (!name) return;
+    const grid = document.getElementById('exerciseCheckin');
+    const key = 'custom_' + Date.now();
+    const div = document.createElement('div');
+    div.className = 'checkin-item';
+    div.setAttribute('onclick', "toggleCheckin(this, '" + key + "')");
+    div.innerHTML = '<div class="checkin-icon">&#127939;</div><div class="checkin-name">' + name + '</div><div class="checkin-status">未打卡</div>';
+    grid.appendChild(div);
+    input.value = '';
+  }
+
+  function loadCheckinState() {
+    const today = formatDate(new Date());
+    const state = JSON.parse(localStorage.getItem('liuli-checkin-' + today) || '{}');
+    document.querySelectorAll('.checkin-item').forEach(function(el) {
+      const key = el.getAttribute('onclick').match(/toggleCheckin\(this,\s*'([^']+)'\)/);
+      if (key && state[key[1]]) {
+        el.classList.add('checked');
+        el.querySelector('.checkin-status').textContent = '✅ 已打卡';
+      }
+    });
+    updateCheckinProgress();
+  }
+
+  function updateCheckinProgress() {
+    const items = document.querySelectorAll('.checkin-item');
+    const checked = document.querySelectorAll('.checkin-item.checked');
+    const pct = items.length ? Math.round(checked.length / items.length * 100) : 0;
+    document.getElementById('checkinProgress').textContent = pct + '%';
+    document.getElementById('checkinProgressBar').style.width = pct + '%';
+    const sections = ['medicine', 'cultivation', 'exercise'];
+    let summary = [];
+    sections.forEach(function(s) {
+      const grid = document.getElementById(s + 'Checkin');
+      if (!grid) return;
+      const total = grid.querySelectorAll('.checkin-item').length;
+      const done = grid.querySelectorAll('.checkin-item.checked').length;
+      if (total > 0) {
+        const names = { medicine: '用药', cultivation: '修行', exercise: '运动' };
+        summary.push(names[s] + ' ' + done + '/' + total);
+      }
+    });
+    document.getElementById('checkinSummary').textContent = summary.join(' · ') || '今日尚未打卡';
+  }
+
+  // ==================== 初始化 ====================
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('logDate').value = formatDate(new Date());
+    renderAll();
+    loadCheckinState();
+  });
+  </script>
+</body>
+</html>
