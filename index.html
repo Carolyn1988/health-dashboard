@@ -54,6 +54,13 @@
       </div>
 
       <div class="card">
+        <div class="card-title"><span class="icon">&#127769;</span>乙未月·穿衣与修行指南</div>
+        <div id="yiweiBox" style="font-size:13px;">
+          <!-- JS填充 -->
+        </div>
+      </div>
+
+      <div class="card">
         <div class="card-title"><span class="icon">&#128085;</span>五行穿衣指南</div>
         <div id="clothingBox" style="font-size:13px;">
           <!-- JS填充 -->
@@ -726,6 +733,8 @@
     renderSupplementBox();
     // 饮食建议
     renderDietAdvice(liuQi);
+    // 乙未月指南
+    renderYiWeiGuide();
     // 五行穿衣
     renderClothingGuide();
     // 日志
@@ -1260,6 +1269,102 @@
   function changeDate(delta) {
     currentDate.setDate(currentDate.getDate() + delta);
     renderAll();
+  }
+
+  // ==================== YiWei Month Guide ====================
+  function renderYiWeiGuide() {
+    const box = document.getElementById('yiweiBox');
+    if (!box) return;
+
+    // 乙未月核心：疏土养水，助木生火
+    box.innerHTML = `
+      <div style="margin-bottom:14px;">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:8px;font-size:14px;">乙未月核心：疏土养水，助木生火</div>
+        <div style="background:#E8F5E9;padding:10px;border-radius:6px;margin-bottom:10px;font-size:12px;line-height:1.6;">
+          本月土气厚重（未月），乙木坐未为木库，宜疏通板结之土、养护水源、助木气条达以生身火。
+        </div>
+      </div>
+
+      <div style="font-weight:700;color:var(--accent);margin-bottom:8px;">一、穿衣颜色</div>
+      <div style="margin-bottom:14px;">
+        <div class="clothing-card today" style="margin-bottom:8px;">
+          <div class="color-preview" style="background:#7CB342;"></div>
+          <div class="color-info">
+            <div class="color-name">主色（多穿）：绿色系</div>
+            <div class="color-reason">浅绿、淡青、柔和果绿皆可。帮你松土、保水、生火，是本月最重要的平衡色。</div>
+          </div>
+          <div class="color-tag ji">吉</div>
+        </div>
+        <div class="clothing-card tomorrow" style="margin-bottom:8px;">
+          <div class="color-preview" style="background:#F5F5F5;border:1px solid #ddd;"></div>
+          <div class="color-info">
+            <div class="color-name">辅色（可搭）：白色、米色系</div>
+            <div class="color-reason">少量用于内搭或下装，作金的意象，提醒你内在的边界正在养成。</div>
+          </div>
+          <div class="color-tag ping">平</div>
+        </div>
+        <div class="clothing-card tomorrow" style="margin-bottom:8px;">
+          <div class="color-preview" style="background:#1E88E5;"></div>
+          <div class="color-info">
+            <div class="color-name">点缀色（慎用）：黑色、深蓝</div>
+            <div class="color-reason">偶尔配饰可用，但大面积使用水色，易被燥土所阻，反成淤滞。</div>
+          </div>
+          <div class="color-tag xiong">凶</div>
+        </div>
+        <div class="clothing-card today" style="margin-bottom:8px;">
+          <div class="color-preview" style="background:#E53935;"></div>
+          <div class="color-info">
+            <div class="color-name">避开色：大红、焦糖、深咖</div>
+            <div class="color-reason">避免增加火土燥气，火上浇油、土更板结。</div>
+          </div>
+          <div class="color-tag xiong">忌</div>
+        </div>
+      </div>
+
+      <div style="font-weight:700;color:var(--accent);margin-bottom:8px;">二、衣物材质</div>
+      <div style="margin-bottom:14px;line-height:1.8;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+          <div style="flex:1;min-width:140px;background:#E8F5E9;padding:10px;border-radius:6px;">
+            <div style="font-weight:700;color:var(--success);font-size:12px;margin-bottom:4px;">首选 · 木气</div>
+            <div style="font-size:12px;">棉、麻<br>亲肤透气，助气机条达舒畅。</div>
+          </div>
+          <div style="flex:1;min-width:140px;background:#F5F0E8;padding:10px;border-radius:6px;">
+            <div style="font-weight:700;color:var(--warning);font-size:12px;margin-bottom:4px;">次选 · 土气</div>
+            <div style="font-size:12px;">羊毛、羊绒<br>天凉时小面积保暖，有承载之效。</div>
+          </div>
+        </div>
+        <div style="background:#FFEBEE;padding:10px;border-radius:6px;font-size:12px;">
+          <strong>慎用 · 金气：</strong>避免大面积金属感面料或硬挺金属配饰。金的肃杀会克制乙木的生机。
+        </div>
+      </div>
+
+      <div style="font-weight:700;color:var(--accent);margin-bottom:8px;">三、修行与养生</div>
+      <div style="line-height:1.8;">
+        <div style="background:#E8F5E9;padding:10px;border-radius:6px;margin-bottom:8px;">
+          <div style="font-weight:700;color:var(--success);font-size:12px;margin-bottom:4px;">核心练习 · 稳固土</div>
+          <div style="font-size:12px;">站桩或静坐，每日5-15分钟。想象脚底生根，接引大地能量，稳固中轴。</div>
+        </div>
+        <div style="background:#F5F0E8;padding:10px;border-radius:6px;margin-bottom:8px;">
+          <div style="font-weight:700;color:var(--accent);font-size:12px;margin-bottom:4px;">辅助练习 · 疏通气</div>
+          <div style="font-size:12px;">诵经持咒。用声音的振动，温和地疏松内在板结的能量，呼应河边唱颂的梦。</div>
+        </div>
+        <div style="background:#E3F2FD;padding:10px;border-radius:6px;margin-bottom:8px;">
+          <div style="font-weight:700;color:var(--accent);font-size:12px;margin-bottom:4px;">日常练习 · 运化土</div>
+          <div style="font-size:12px;">饭后摩腹：顺时针、逆时针各36圈，助脾胃运化，将疲惫化为滋养。</div>
+        </div>
+        <div style="background:#FFF3E0;padding:10px;border-radius:6px;margin-bottom:8px;">
+          <div style="font-weight:700;color:var(--warning);font-size:12px;margin-bottom:4px;">极简心法</div>
+          <div style="font-size:12px;">当感到心绪不稳时，心中默念一个字——<strong>“化”</strong>。观想烦恼如冰块，落入温热的土壤中，自然消融。</div>
+        </div>
+        <div style="background:#F5F0E8;padding:10px;border-radius:6px;">
+          <div style="font-weight:700;color:var(--accent);font-size:12px;margin-bottom:4px;">养生要诀</div>
+          <div style="font-size:12px;">
+            • 饮食温热，喝温水，吃小米粥等易消化食物，保护脾胃这个“土”的中枢。<br>
+            • 午间小憩，安养心神。
+          </div>
+        </div>
+      </div>
+    `;
   }
 
   // ==================== Clothing Guide ====================
