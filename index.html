@@ -286,6 +286,15 @@
           </div>
           <div class="form-row">
             <div class="form-group">
+              <label>亚精胺（早晨空腹）</label>
+              <select id="logSpermidine">
+                <option value="">未记录</option>
+                <option value="已服用">✅ 已服用</option>
+                <option value="漏服">❌ 漏服</option>
+                <option value="时间不对">⚠️ 时间不对</option>
+              </select>
+            </div>
+            <div class="form-group">
               <label>补充剂备注</label>
               <input type="text" id="logSupplementNote" placeholder="例如：Q10改到晚餐后了">
             </div>
@@ -1247,6 +1256,7 @@
       if (log.coq10) tags.push('&#x1F48A;辅酶Q10:' + log.coq10);
       if (log.fishOil) tags.push('&#x1F48A;鱼油:' + log.fishOil);
       if (log.gaba) tags.push('&#x1F48A;GABA:' + log.gaba);
+      if (log.spermidine) tags.push('&#x1F48A;亚精胺:' + log.spermidine);
 
       let dietHtml = '';
       const meals = [];
@@ -1259,12 +1269,13 @@
       }
 
       let suppHtml = '';
-      if (log.egt || log.coq10 || log.fishOil || log.gaba) {
+      if (log.egt || log.coq10 || log.fishOil || log.gaba || log.spermidine) {
         suppHtml = '<div style="font-size:11px;color:var(--accent);margin:4px 0 2px;">&#x1F48A; ';
         if (log.egt) suppHtml += '麦角硫因:' + log.egt + ' ';
         if (log.coq10) suppHtml += '辅酶Q10:' + log.coq10 + ' ';
         if (log.fishOil) suppHtml += '鱼油:' + log.fishOil + ' ';
-        if (log.gaba) suppHtml += 'GABA:' + log.gaba;
+        if (log.gaba) suppHtml += 'GABA:' + log.gaba + ' ';
+        if (log.spermidine) suppHtml += '亚精胺:' + log.spermidine;
         suppHtml += '</div>';
       }
 
@@ -1297,6 +1308,7 @@
       coq10: document.getElementById('logCoQ10').value,
       fishOil: document.getElementById('logFishOil').value,
       gaba: document.getElementById('logGABA').value,
+      spermidine: document.getElementById('logSpermidine').value,
       supplementNote: document.getElementById('logSupplementNote').value.trim()
     };
     // 去重：同一天覆盖
@@ -1314,6 +1326,7 @@
     document.getElementById('logCoQ10').value = '';
     document.getElementById('logFishOil').value = '';
     document.getElementById('logGABA').value = '';
+    document.getElementById('logSpermidine').value = '';
     document.getElementById('logSupplementNote').value = '';
     document.getElementById('foodAnalysisBox').innerHTML = '';
     alert('记录已保存');
