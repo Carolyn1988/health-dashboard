@@ -852,6 +852,9 @@
   }
 
   function analyzeCurrentMeal() {
+    const box = document.getElementById('foodAnalysisBox');
+    box.innerHTML = '<div style="color:var(--text);font-size:12px;padding:10px;">正在分析，请稍候...</div>';
+
     const breakfast = document.getElementById('logBreakfast').value || '';
     const lunch = document.getElementById('logLunch').value || '';
     const dinner = document.getElementById('logDinner').value || '';
@@ -861,13 +864,37 @@
       .map(f => f.trim()).filter(f => f);
 
     if (allFoods.length === 0) {
-      document.getElementById('foodAnalysisBox').innerHTML = '<div style="color:var(--text-light);font-size:12px;">请先输入食物再分析。</div>';
+      box.innerHTML = '<div style="color:var(--text-light);font-size:12px;padding:10px;">请先输入食物再分析。</div>';
+      return;
+    }
+
+    // 引擎存在性检查
+    if (typeof WuyunEngine === 'undefined') {
+      box.innerHTML = '<div style="color:var(--danger);font-size:12px;padding:10px;">错误：WuyunEngine 未加载。请刷新页面重试。</div>';
+      return;
+    }
+    if (typeof FoodEngine === 'undefined') {
+      box.innerHTML = '<div style="color:var(--danger);font-size:12px;padding:10px;">错误：FoodEngine 未加载。请刷新页面重试（若多次失败，可能是 js/food.js 文件加载失败）。</div>';
+      return;
+    }
+    if (typeof currentDate === 'undefined') {
+      box.innerHTML = '<div style="color:var(--danger);font-size:12px;padding:10px;">错误：页面日期未初始化。请刷新页面重试。</div>';
       return;
     }
 
     try {
       const liuQi = WuyunEngine.getLiuQiInfo(currentDate);
+      if (!liuQi || typeof liuQi.index !== 'number') {
+        box.innerHTML = '<div style="color:var(--danger);font-size:12px;padding:10px;">错误：无法获取五运六气信息。</div>';
+        return;
+      }
+
       const result = FoodEngine.analyzeMeal(allFoods, USER.constitution, liuQi.index, USER.formula.name);
+
+      if (!result || !result.items) {
+        box.innerHTML = '<div style="color:var(--danger);font-size:12px;padding:10px;">错误：分析结果异常。</div>';
+        return;
+      }
 
       let html = '<div style="background:var(--bg);padding:14px;border-radius:8px;margin-top:10px;">';
       html += `<div style="font-weight:700;color:var(--accent);margin-bottom:10px;font-size:14px;">饮食分析结果</div>`;
@@ -944,10 +971,18 @@
       }
 
       html += '</div>';
-      document.getElementById('foodAnalysisBox').innerHTML = html;
+      box.innerHTML = html;
     } catch (err) {
       console.error('饮食分析出错:', err);
-      document.getElementById('foodAnalysisBox').innerHTML = `<div style="color:var(--danger);font-size:12px;">分析出错：${err.message}</div>`;
+      let errMsg = err.message || '未知错误';
+      let stack = err.stack || '';
+      // 截取堆栈前3行，避免太长
+      let shortStack = stack.split('\n').slice(0, 3).join('<br>');
+      box.innerHTML = `<div style="color:var(--danger);font-size:12px;padding:10px;">
+        <strong>分析出错：</strong>${errMsg}<br>
+        <span style="color:var(--text-light);font-size:11px;">${shortStack}</span><br>
+        <span style="color:var(--text-light);font-size:11px;">建议：打开浏览器控制台(F12)查看完整错误，或刷新页面重试。</span>
+      </div>`;
     }
   }
 
