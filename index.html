@@ -349,6 +349,12 @@
               <div class="checkin-name">鱼油</div>
               <div class="checkin-status">未打卡</div>
             </div>
+            <div class="checkin-item" data-key="spermidine" onclick="toggleCheckin(this, 'spermidine')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'medicineCheckin')">&times;</div>
+              <div class="checkin-icon">&#127793;</div>
+              <div class="checkin-name">亚精胺</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
           </div>
           <div class="custom-checkin">
             <input type="text" id="customMedicine" placeholder="自定义用药/补充剂">
@@ -561,6 +567,15 @@
         note: '助眠用。长期安全性数据不足，建议连续服用不超过3个月。若减量后反弹，需配合酸枣仁百合茶逐步过渡。晨起残留效应：可能眼睛疲惫、神思弥散。',
         bestHour: [21, 22, 23],
         level: 'warning'
+      },
+      {
+        name: '亚精胺（Spermidine）',
+        time: '早晨空腹（饭前30分钟）',
+        dosage: '每日1次',
+        withFood: false,
+        note: '细胞自噬激活剂，空腹吸收最佳。与麦角硫因协同抗衰，可同时间段服用。避免与高蛋白质食物同服（如牛奶、豆浆），因蛋白质中的多胺可能干扰吸收。',
+        bestHour: [6, 7, 8],
+        level: 'green'
       }
     ],
     tea: {
@@ -1020,7 +1035,7 @@
     });
     html += '<div style="margin-top:8px;font-size:11px;color:var(--text-light);line-height:1.6;">'
       + '<strong>非最佳时间影响：</strong><br>'
-      + '麦角硫因饭后服：吸收降15~20%<br>'
+      + '麦角硫因/亚精胺饭后服：吸收降15~20%<br>'
       + '辅酶Q10空腹服：吸收降60~70%<br>'
       + '鱼油空腹服：30~40%概率胃不适<br>'
       + 'GABA提前/延后：提前2小时可能提前昏沉；延后可能入睡前药效已过'
