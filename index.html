@@ -313,36 +313,46 @@
         <div class="card-title"><span class="icon">&#128138;</span>用药打卡</div>
         <div class="checkin-section">
           <div class="checkin-grid" id="medicineCheckin">
-            <div class="checkin-item" onclick="toggleCheckin(this, 'morningMed')">
+            <div class="checkin-item" data-key="morningMed" onclick="toggleCheckin(this, 'morningMed')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'medicineCheckin')">&times;</div>
               <div class="checkin-icon">&#127807;</div>
               <div class="checkin-name">晨间中药</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'eveningMed')">
+            <div class="checkin-item" data-key="eveningMed" onclick="toggleCheckin(this, 'eveningMed')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'medicineCheckin')">&times;</div>
               <div class="checkin-icon">&#127807;</div>
               <div class="checkin-name">晚间中药</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'gaba')">
+            <div class="checkin-item" data-key="gaba" onclick="toggleCheckin(this, 'gaba')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'medicineCheckin')">&times;</div>
               <div class="checkin-icon">&#128564;</div>
               <div class="checkin-name">GABA</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'egt')">
+            <div class="checkin-item" data-key="egt" onclick="toggleCheckin(this, 'egt')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'medicineCheckin')">&times;</div>
               <div class="checkin-icon">&#128663;</div>
               <div class="checkin-name">麦角硫因</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'coq10')">
+            <div class="checkin-item" data-key="coq10" onclick="toggleCheckin(this, 'coq10')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'medicineCheckin')">&times;</div>
               <div class="checkin-icon">&#128663;</div>
               <div class="checkin-name">辅酶Q10</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'fishoil')">
+            <div class="checkin-item" data-key="fishoil" onclick="toggleCheckin(this, 'fishoil')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'medicineCheckin')">&times;</div>
               <div class="checkin-icon">&#128663;</div>
               <div class="checkin-name">鱼油</div>
               <div class="checkin-status">未打卡</div>
             </div>
+          </div>
+          <div class="custom-checkin">
+            <input type="text" id="customMedicine" placeholder="自定义用药/补充剂">
+            <button onclick="addCustomCheckinToGrid('medicineCheckin', 'customMedicine', '&#128138;')">添加</button>
           </div>
         </div>
       </div>
@@ -351,36 +361,70 @@
         <div class="card-title"><span class="icon">&#9775;</span>修行打卡</div>
         <div class="checkin-section">
           <div class="checkin-grid" id="cultivationCheckin">
-            <div class="checkin-item" onclick="toggleCheckin(this, 'jingang')">
+            <div class="checkin-item" data-key="jingang" onclick="toggleCheckin(this, 'jingang')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'cultivationCheckin')">&times;</div>
               <div class="checkin-icon">&#128336;</div>
               <div class="checkin-name">金刚诵</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'dali')">
+            <div class="checkin-item" data-key="dali" onclick="toggleCheckin(this, 'dali')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'cultivationCheckin')">&times;</div>
               <div class="checkin-icon">&#128591;</div>
               <div class="checkin-name">大礼拜</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'shuiguan')">
+            <div class="checkin-item" data-key="shuiguan" onclick="toggleCheckin(this, 'shuiguan')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'cultivationCheckin')">&times;</div>
               <div class="checkin-icon">&#128167;</div>
               <div class="checkin-name">水火既济</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'wuhuo')">
+            <div class="checkin-item" data-key="wuhuo" onclick="toggleCheckin(this, 'wuhuo')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'cultivationCheckin')">&times;</div>
               <div class="checkin-icon">&#9728;&#65039;</div>
               <div class="checkin-name">午火冥想</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'yijin')">
+            <div class="checkin-item" data-key="yijin" onclick="toggleCheckin(this, 'yijin')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'cultivationCheckin')">&times;</div>
               <div class="checkin-icon">&#129495;</div>
               <div class="checkin-name">晨间易筋经</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'chaoxie')">
+            <div class="checkin-item" data-key="chaoxie" onclick="toggleCheckin(this, 'chaoxie')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'cultivationCheckin')">&times;</div>
               <div class="checkin-icon">&#9997;</div>
               <div class="checkin-name">抄经</div>
               <div class="checkin-status">未打卡</div>
             </div>
+            <div class="checkin-item" data-key="zhuangjing" onclick="toggleCheckin(this, 'zhuangjing')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'cultivationCheckin')">&times;</div>
+              <div class="checkin-icon">&#129496;</div>
+              <div class="checkin-name">站桩静坐</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" data-key="songjing" onclick="toggleCheckin(this, 'songjing')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'cultivationCheckin')">&times;</div>
+              <div class="checkin-icon">&#128264;</div>
+              <div class="checkin-name">诵经持咒</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" data-key="mofu" onclick="toggleCheckin(this, 'mofu')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'cultivationCheckin')">&times;</div>
+              <div class="checkin-icon">&#128075;</div>
+              <div class="checkin-name">饭后摩腹</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+            <div class="checkin-item" data-key="nianhua" onclick="toggleCheckin(this, 'nianhua')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'cultivationCheckin')">&times;</div>
+              <div class="checkin-icon">&#129300;</div>
+              <div class="checkin-name">默念"化"字</div>
+              <div class="checkin-status">未打卡</div>
+            </div>
+          </div>
+          <div class="custom-checkin">
+            <input type="text" id="customCultivation" placeholder="自定义修行项">
+            <button onclick="addCustomCheckinToGrid('cultivationCheckin', 'customCultivation', '&#9775;')">添加</button>
           </div>
         </div>
       </div>
@@ -389,27 +433,32 @@
         <div class="card-title"><span class="icon">&#127939;</span>运动打卡</div>
         <div class="checkin-section">
           <div class="checkin-grid" id="exerciseCheckin">
-            <div class="checkin-item" onclick="toggleCheckin(this, 'yijinSport')">
+            <div class="checkin-item" data-key="yijinSport" onclick="toggleCheckin(this, 'yijinSport')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'exerciseCheckin')">&times;</div>
               <div class="checkin-icon">&#129495;</div>
               <div class="checkin-name">易筋经</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'wushu')">
+            <div class="checkin-item" data-key="wushu" onclick="toggleCheckin(this, 'wushu')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'exerciseCheckin')">&times;</div>
               <div class="checkin-icon">&#129354;</div>
               <div class="checkin-name">武术</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'dance')">
+            <div class="checkin-item" data-key="dance" onclick="toggleCheckin(this, 'dance')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'exerciseCheckin')">&times;</div>
               <div class="checkin-icon">&#128131;</div>
               <div class="checkin-name">舞蹈</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'walk')">
+            <div class="checkin-item" data-key="walk" onclick="toggleCheckin(this, 'walk')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'exerciseCheckin')">&times;</div>
               <div class="checkin-icon">&#128694;</div>
               <div class="checkin-name">散步</div>
               <div class="checkin-status">未打卡</div>
             </div>
-            <div class="checkin-item" onclick="toggleCheckin(this, 'dazuo')">
+            <div class="checkin-item" data-key="dazuo" onclick="toggleCheckin(this, 'dazuo')">
+              <div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, 'exerciseCheckin')">&times;</div>
               <div class="checkin-icon">&#129496;</div>
               <div class="checkin-name">打坐</div>
               <div class="checkin-status">未打卡</div>
@@ -417,7 +466,7 @@
           </div>
           <div class="custom-checkin">
             <input type="text" id="customExercise" placeholder="自定义运动">
-            <button onclick="addCustomCheckin()">添加</button>
+            <button onclick="addCustomCheckinToGrid('exerciseCheckin', 'customExercise', '&#127939;')">添加</button>
           </div>
         </div>
       </div>
@@ -1484,26 +1533,92 @@
     updateCheckinProgress();
   }
 
-  function addCustomCheckin() {
-    const input = document.getElementById('customExercise');
+  function addCustomCheckinToGrid(gridId, inputId, icon) {
+    const input = document.getElementById(inputId);
     const name = input.value.trim();
     if (!name) return;
-    const grid = document.getElementById('exerciseCheckin');
-    const key = 'custom_' + Date.now();
+    const grid = document.getElementById(gridId);
+    const key = 'custom_' + gridId + '_' + Date.now();
     const div = document.createElement('div');
     div.className = 'checkin-item';
+    div.setAttribute('data-key', key);
     div.setAttribute('onclick', "toggleCheckin(this, '" + key + "')");
-    div.innerHTML = '<div class="checkin-icon">&#127939;</div><div class="checkin-name">' + name + '</div><div class="checkin-status">未打卡</div>';
+    div.innerHTML = '<div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, \'' + gridId + '\')">&times;</div>'
+      + '<div class="checkin-icon">' + icon + '</div>'
+      + '<div class="checkin-name">' + name + '</div>'
+      + '<div class="checkin-status">未打卡</div>';
     grid.appendChild(div);
     input.value = '';
+    // 保存自定义项
+    saveCustomCheckins(gridId);
+  }
+
+  function deleteCheckinItem(el, gridId) {
+    if (!confirm('确定删除「' + el.querySelector('.checkin-name').textContent + '」吗？')) return;
+    el.remove();
+    saveCustomCheckins(gridId);
+    updateCheckinProgress();
+  }
+
+  function saveCustomCheckins(gridId) {
+    const grid = document.getElementById(gridId);
+    const items = grid.querySelectorAll('.checkin-item[data-key^="custom_"]');
+    const customItems = [];
+    items.forEach(function(item) {
+      const key = item.getAttribute('data-key');
+      const name = item.querySelector('.checkin-name').textContent;
+      const icon = item.querySelector('.checkin-icon').innerHTML;
+      customItems.push({ key: key, name: name, icon: icon });
+    });
+    localStorage.setItem('liuli-custom-checkins-' + gridId, JSON.stringify(customItems));
+  }
+
+  function loadCustomCheckins() {
+    const grids = ['medicineCheckin', 'cultivationCheckin', 'exerciseCheckin'];
+    grids.forEach(function(gridId) {
+      const saved = localStorage.getItem('liuli-custom-checkins-' + gridId);
+      if (!saved) return;
+      try {
+        const items = JSON.parse(saved);
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+        items.forEach(function(item) {
+          // 检查是否已存在
+          if (grid.querySelector('[data-key="' + item.key + '"]')) return;
+          const div = document.createElement('div');
+          div.className = 'checkin-item';
+          div.setAttribute('data-key', item.key);
+          div.setAttribute('onclick', "toggleCheckin(this, '" + item.key + "')");
+          div.innerHTML = '<div class="checkin-delete" onclick="event.stopPropagation(); deleteCheckinItem(this.parentElement, \'' + gridId + '\')">&times;</div>'
+            + '<div class="checkin-icon">' + (item.icon || '&#9989;') + '</div>'
+            + '<div class="checkin-name">' + item.name + '</div>'
+            + '<div class="checkin-status">未打卡</div>';
+          grid.appendChild(div);
+        });
+      } catch (e) {
+        console.error('加载自定义打卡项失败', e);
+      }
+    });
   }
 
   function loadCheckinState() {
     const today = formatDate(new Date());
     const state = JSON.parse(localStorage.getItem('liuli-checkin-' + today) || '{}');
     document.querySelectorAll('.checkin-item').forEach(function(el) {
-      const key = el.getAttribute('onclick').match(/toggleCheckin\(this,\s*'([^']+)'\)/);
-      if (key && state[key[1]]) {
+      const key = el.getAttribute('data-key') || '';
+      if (!key) {
+        // 兼容旧数据：从 onclick 中提取
+        const match = el.getAttribute('onclick').match(/toggleCheckin\(this,\s*'([^']+)'\)/);
+        if (match) {
+          el.setAttribute('data-key', match[1]);
+          if (state[match[1]]) {
+            el.classList.add('checked');
+            el.querySelector('.checkin-status').textContent = '✅ 已打卡';
+          }
+        }
+        return;
+      }
+      if (state[key]) {
         el.classList.add('checked');
         el.querySelector('.checkin-status').textContent = '✅ 已打卡';
       }
@@ -1536,6 +1651,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('logDate').value = formatDate(new Date());
     renderAll();
+    loadCustomCheckins();
     loadCheckinState();
   });
   </script>
