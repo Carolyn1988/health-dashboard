@@ -306,7 +306,7 @@
           <div>
             <button type="submit" class="btn btn-primary">保存记录</button>
             <button type="button" class="btn btn-secondary" onclick="document.getElementById('logDate').value=formatDate(new Date())">设为今日</button>
-            <button type="button" class="btn btn-secondary" onclick="analyzeCurrentMeal()">分析今日饮食</button>
+            <button type="button" class="btn btn-secondary" onclick="var box=document.getElementById('foodAnalysisBox'); if(!box){alert('未找到分析区域，请检查页面结构'); return;} box.innerHTML='<div style=\'padding:10px;font-size:12px;\'>按钮已触发，正在分析...</div>'; try{analyzeCurrentMeal();}catch(e){box.innerHTML='<div style=\'padding:10px;color:var(--danger);font-size:12px;\'>分析出错：'+e.message+'</div>'; console.error('分析出错:', e);}">分析今日饮食</button>
           </div>
         </form>
       </div>
@@ -1716,6 +1716,15 @@
     renderAll();
     loadCustomCheckins();
     loadCheckinState();
+  });
+
+  // 全局错误处理器，将页面加载错误显示在 foodAnalysisBox 中
+  window.addEventListener('error', function(event) {
+    console.error('页面错误:', event.error);
+    var box = document.getElementById('foodAnalysisBox');
+    if (box) {
+      box.innerHTML = '<div style="padding:10px;color:var(--danger);font-size:12px;">页面加载错误：' + event.message + ' (line ' + event.lineno + ')</div>';
+    }
   });
   </script>
 </body>
