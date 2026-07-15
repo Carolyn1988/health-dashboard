@@ -28,6 +28,7 @@
       <button class="tab" onclick="switchTab(2)">健康档案</button>
       <button class="tab" onclick="switchTab(3)">命盘与修行</button>
       <button class="tab" onclick="switchTab(4)">健康日志</button>
+      <button class="tab" onclick="switchTab(6)">数据管理</button>
       <button class="tab" onclick="switchTab(5)">今日打卡</button>
     </div>
 
@@ -498,6 +499,35 @@
       </div>
     </div>
 
+    <!-- Tab 6: 数据管理 -->
+    <div class="tab-content" id="tab-6">
+      <div class="card">
+        <div class="card-title"><span class="icon">&#128202;</span>数据备份与恢复</div>
+        <div style="padding:10px 0;">
+          <p style="font-size:13px;color:var(--text-light);margin-bottom:12px;line-height:1.6;">
+            所有打卡记录、自定义项、健康日志都保存在浏览器本地。微信会定期清理缓存，建议每周导出备份一次，保存到微信文件传输助手或备忘录。
+          </p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+            <button type="button" class="btn btn-primary" onclick="exportData()">&#128190; 导出数据备份</button>
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('importFile').click()">&#128193; 导入数据恢复</button>
+            <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(this)">
+          </div>
+          <div id="dataInfoBox" style="font-size:12px;color:var(--text-light);background:var(--bg);padding:10px;border-radius:8px;line-height:1.8;">
+            正在统计数据...
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon">&#9888;&#65039;</span>使用说明</div>
+        <div style="font-size:13px;color:var(--text-light);line-height:1.8;padding:6px 0;">
+          <p><strong>1. 备份频率：</strong>建议每周导出一次，或每次大量打卡后导出。</p>
+          <p><strong>2. 保存方式：</strong>点击「导出」后，将生成的 .json 文件发送到「微信文件传输助手」或保存到手机备忘录。</p>
+          <p><strong>3. 恢复方式：</strong>更换手机或清除缓存后，点击「导入」选择之前保存的 .json 文件即可恢复所有记录。</p>
+          <p><strong>4. 数据范围：</strong>备份包含所有打卡记录、自定义打卡项、健康日志、饮食分析历史。</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Bottom Navigation (Mobile) -->
@@ -518,6 +548,10 @@
       <button class="nav-item" onclick="switchTab(4)">
         <span class="nav-icon">&#9997;</span>
         <span>日志</span>
+      </button>
+      <button class="nav-item" onclick="switchTab(6)">
+        <span class="nav-icon">&#128202;</span>
+        <span>数据</span>
       </button>
       <button class="nav-item" onclick="switchTab(2)">
         <span class="nav-icon">&#128100;</span>
@@ -1710,12 +1744,100 @@
     document.getElementById('checkinSummary').textContent = summary.join(' · ') || '今日尚未打卡';
   }
 
+  // ==================== 数据备份与恢复 ====================
+  function exportData() {
+    try {
+      const data = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && (key.startsWith('liuli-') || key.startsWith('health-'))) {
+          data[key] = localStorage.getItem(key);
+        }
+      }
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'liuli-health-backup-' + formatDate(new Date()) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      alert('备份已下载，请保存到微信文件传输助手或备忘录。');
+    } catch (e) {
+      alert('导出失败：' + e.message);
+    }
+  }
+
+  function importData(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        let count = 0;
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            localStorage.setItem(key, data[key]);
+            count++;
+          }
+        }
+        alert('成功恢复 ' + count + ' 条记录，页面即将刷新。');
+        location.reload();
+      } catch (err) {
+        alert('导入失败：文件格式错误。请确保选择正确的 .json 备份文件。');
+      }
+    };
+    reader.readAsText(file);
+    input.value = '';
+  }
+
+  function updateDataInfo() {
+    const box = document.getElementById('dataInfoBox');
+    if (!box) return;
+    let logCount = 0;
+    let checkinCount = 0;
+    let customCount = 0;
+    let earliest = null;
+    let latest = null;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key) continue;
+      if (key.startsWith('liuli-log-')) {
+        logCount++;
+        const date = key.replace('liuli-log-', '');
+        if (!earliest || date < earliest) earliest = date;
+        if (!latest || date > latest) latest = date;
+      }
+      if (key.startsWith('liuli-checkin-')) {
+        checkinCount++;
+      }
+      if (key === 'liuli-custom-checkins') {
+        try {
+          const items = JSON.parse(localStorage.getItem(key) || '[]');
+          customCount = items.length;
+        } catch (e) {}
+      }
+    }
+    let html = '<strong>当前数据概览</strong><br>';
+    html += '健康日志天数：' + logCount + ' 天';
+    if (earliest && latest) {
+      html += '（' + earliest + ' 至 ' + latest + '）';
+    }
+    html += '<br>打卡记录天数：' + checkinCount + ' 天<br>';
+    html += '自定义打卡项：' + customCount + ' 个<br>';
+    html += '总存储项数：' + localStorage.length + ' 条';
+    box.innerHTML = html;
+  }
+
   // ==================== 初始化 ====================
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('logDate').value = formatDate(new Date());
     renderAll();
     loadCustomCheckins();
     loadCheckinState();
+    updateDataInfo();
   });
 
   // 全局错误处理器，将页面加载错误显示在 foodAnalysisBox 中
